@@ -1,17 +1,17 @@
-.form__buttom {
+.buttom {
     width: 358px;
     background-color: #000000;
     border-radius: 2px;
     margin: 48px auto 37px;
 }
 
-.form__buttom:hover {
+.buttom:hover {
     background-color: rgba(0, 0, 0, 0.8);
     cursor: pointer;
 }
 
 @media screen and (max-width: 900px) {
-    .form__buttom {
+    .buttom {
         width: 238px;
         margin: 45px auto 25px;
     }

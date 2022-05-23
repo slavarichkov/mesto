@@ -1,6 +1,6 @@
 const editButton = document.querySelector('.Edit-Button') 
 const popup = document.querySelector('.popup')
-const saveButtom = document.querySelector('.form__buttom')
+const saveButtom = document.querySelector('.buttom')
 const closeIkon = document.querySelector('.closeIkon')
 const profileFirstname = document.querySelector('.profile-Info__firstname')
 const firstnameInput = document.querySelector('.form__input_firstname')
