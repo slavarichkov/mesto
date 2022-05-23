@@ -2,9 +2,19 @@
     margin-left: auto;
     padding-bottom: 10px;
     width: 32px;
+    position: absolute;
+    right: -39px;
+    top: -39px;
 }
 
 .closeIkon:hover {
     opacity: 0.6;
     cursor: pointer;
+}
+
+@media screen and (max-width: 900px) {
+    .closeIkon {
+        position: unset;
+        width: 20px;
+    }
 }
