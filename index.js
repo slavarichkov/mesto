@@ -1,6 +1,6 @@
 const editButton = document.querySelector('.Edit-Button') 
 const popup = document.querySelector('.popup')
-const saveButtom = document.querySelector('.buttom')
+const saveButton = document.querySelector('.button')
 const closeIkon = document.querySelector('.closeIkon')
 const profileFirstname = document.querySelector('.profile-Info__firstname')
 const firstnameInput = document.querySelector('.form__input_firstname')
@@ -13,7 +13,7 @@ editButton.addEventListener('click', function() {
     professionInput.value = profileSubtext.textContent;
 })
 
-saveButtom.addEventListener('click', function() {
+saveButton.addEventListener('click', function() {
     popup.classList.remove('popup_open')
     profileFirstname.textContent = firstnameInput.value;
     profileSubtext.textContent = professionInput.value;

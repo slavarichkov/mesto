@@ -1,18 +1,27 @@
-.buttom {
+.button {
     width: 358px;
     background-color: #000000;
     border-radius: 2px;
     margin: 48px auto 37px;
+    font-family: 'Inter, Arial, sans-serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #FFFFFF;
+    height: 50px;
 }
 
-.buttom:hover {
+.button:hover {
     background-color: rgba(0, 0, 0, 0.8);
     cursor: pointer;
 }
 
 @media screen and (max-width: 900px) {
-    .buttom {
+    .button {
         width: 238px;
+        height: 46px;
         margin: 45px auto 25px;
     }
 }

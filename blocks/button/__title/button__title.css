@@ -1,4 +1,4 @@
-.buttom__title {
+.button__title {
     font-family: 'Inter, Arial, sans-serif';
     font-style: normal;
     font-weight: 400;
@@ -9,7 +9,7 @@
 }
 
 @media screen and (max-width: 900px) {
-    .buttom__title {
+    .button__title {
         margin: 0;
         padding: 14px 0 14px 0;
     }
