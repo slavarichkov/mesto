@@ -1,11 +1,11 @@
-.profile-Info__content {
+.profile__content {
     display: flex;
     align-items: center;
     margin: 0 auto 0;
 }
 
 @media screen and (max-width: 900px) {
-    .profile-Info__content {
+    .profile__content {
         position: relative;
     }
 }

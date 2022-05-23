@@ -1,4 +1,4 @@
-.profile-Info__firstname {
+.profile__firstname {
     font-family: 'Inter, Arial, sans-serif';
     font-style: normal;
     font-weight: 500;
@@ -11,7 +11,7 @@
 }
 
 @media screen and (max-width: 599px) {
-    .profile-Info__firstname {
+    .profile__firstname {
         font-weight: 500;
         font-size: 27px;
         line-height: 33px;

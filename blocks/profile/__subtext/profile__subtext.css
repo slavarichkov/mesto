@@ -1,4 +1,4 @@
-.profile-Info__subtext {
+.profile__subtext {
     font-family: 'Inter, Arial, sans-serif';
     font-style: normal;
     font-weight: 400;
@@ -11,14 +11,14 @@
 
 
 @media screen and (max-width: 900px) {
-    .profile-Info__subtext {
+    .profile__subtext {
         text-align: center;
         margin: 0 auto 0;
     }
 }
 
 @media screen and (max-width: 599px) {
-    .profile-Info__subtext {
+    .profile__subtext {
         font-weight: 400;
         font-size: 14px;
         line-height: 17px;
