@@ -7,3 +7,10 @@
     text-align: center;
     color: #FFFFFF;
 }
+
+@media screen and (max-width: 900px) {
+    .form__buttom-title {
+        margin: 0;
+        padding: 14px 0 14px 0;
+    }
+}

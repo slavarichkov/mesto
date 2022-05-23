@@ -5,6 +5,14 @@
     font-size: 24px;
     line-height: 29px;
     color: #000000;
-    margin: 0 ;
+    margin: 0;
     padding: 34px 0 54px 36px;
+}
+
+@media screen and (max-width: 900px) {
+    .form__title {
+        padding: 25px 22px 75px 22px;
+        font-size: 18px;
+        line-height: 22px;
+    }
 }
