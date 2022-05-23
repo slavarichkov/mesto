@@ -28,5 +28,5 @@
 @import url(./../blocks/boxForForm/boxForForm.css);
 @import url(./../blocks/popup/popup.css);
 @import url(./../blocks/popup/__open/popup__open.css);
-@import url(./../blocks/Element/__Like/_active/Element__Like_active.css);
 @import url(./../blocks/profile/__Profile-Info/profile__Profile-Info.css);
+@import url(./../blocks/Element/__Like/_active/Element__Like_active.css);
