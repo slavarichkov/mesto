@@ -1,0 +1,21 @@
+.Edit-Button {
+    width: 24px;
+    height: 24px;
+    border: 1px solid #FFFFFF;
+    background-color: #000000;
+    margin-left: 18px;
+}
+
+.Edit-Button:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 900px) {
+    .Edit-Button {
+        width: 18px;
+        height: 18px;
+        position: absolute;
+        right: -30px;
+    }
+}

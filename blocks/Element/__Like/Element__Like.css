@@ -1,0 +1,13 @@
+.Element__Like {
+    max-height: 19px;
+    max-width: 22px;
+}
+
+.Element__Like:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.Element__Like:active {
+    background-image: url(./../../../images/activeLike.svg);
+}

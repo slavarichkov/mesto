@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./pages/index.css">
+    <title>Mesto</title>
+</head>
+
+<body class="page">
+    <header class="header">
+        <img class="logo" src="./images/LogoMesto.svg" alt="Логотип">
+    </header>
+    <main>
+        <section class="profile">
+            <img class="avatar" src="./images/avatar.jpg" alt="Аватар">
+            <div class="Profile-Info">
+                <div class="profile-Info__content">
+                    <p class="profile-Info__firstname">Жак-Ив Кусто </p>
+                    <button class="Edit-Button">
+                        <img class="" src="./images/Rectangle.svg" alt="редактировать">
+                    </button>
+                </div>
+                <p class="profile-Info__subtext">Исследователь океана</p>
+            </div>
+            <button class="Add-Button">
+                <img class="" src="./images/RectangleRect.svg" alt="редактировать">
+            </button>
+        </section>
+        <section class="Elements">
+            <div class="Element">
+                <img class="MaskGroup" src="./images/kirill-pershin-1088404-unsplash.jpg">
+                <div class="Group">
+                    <h2 class="Element__title">Карачаевск</h2>
+                    <img class="Element__Like" src="./images/Like.svg" alt="лайк">
+                </div>
+            </div>
+            <div class="Element">
+                <img class="MaskGroup" src="./images/kirill-pershin-1404681-unsplash.jpg">
+                <div class="Group">
+                    <h2 class="Element__title">Гора Эльбрус</h2>
+                    <img class="Element__Like" src="./images/Like.svg" alt="лайк">
+                </div>
+            </div>
+            <div class="Element">
+                <img class="MaskGroup" src="./images/kirill-pershin-1556355-unsplash.jpg">
+                <div class="Group">
+                    <h2 class="Element__title">Домбай</h2>
+                    <img class="Element__Like" src="./images/Like.svg" alt="лайк">
+                </div>
+            </div>
+            <div class="Element">
+                <img class="MaskGroup" src="./images/kirill-pershin-1404681-unsplash.jpg">
+                <div class="Group">
+                    <h2 class="Element__title">Гора Эльбрус</h2>
+                    <img class="Element__Like" src="./images/Like.svg" alt="лайк">
+                </div>
+            </div>
+            <div class="Element">
+                <img class="MaskGroup" src="./images/kirill-pershin-1556355-unsplash.jpg">
+                <div class="Group">
+                    <h2 class="Element__title">Домбай</h2>
+                    <img class="Element__Like" src="./images/Like.svg" alt="лайк">
+                </div>
+            </div>
+            <div class="Element">
+                <img class="MaskGroup" src="./images/kirill-pershin-1088404-unsplash.jpg">
+                <div class="Group">
+                    <h2 class="Element__title">Карачаево-Ч...</h2>
+                    <img class="Element__Like" src="./images/Like.svg" alt="лайк">
+                </div>
+            </div>
+        </section>
+        <footer class="footer">
+            <p class="footer__title">© 2020 Mesto Russia</p>
+        </footer>
+        <div class="popup">
+            <div class="boxForForm">
+                <img class="closeIkon" src="./images/CloseIcon.svg" alt="свернуть форму редактирования">
+                <div class="form form_visible">
+                    <h2 class="form__title">Редактировать профиль</h2>
+                    <form class="form__popup">
+                        <input type="text" placeholder="Название" class="form__input form__input_firstname">
+                        <input type="text" placeholder="Название" class="form__input form__input_profession">
+                        <buttom class="form__buttom">
+                            <p class="form__buttom-title">Сохранить</p>
+                        </buttom>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="./index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+.closeIkon {
+    margin-left: auto;
+    padding-bottom: 10px;
+    width: 32px;
+}
+
+.closeIkon:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}

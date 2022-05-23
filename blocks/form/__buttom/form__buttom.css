@@ -1,0 +1,19 @@
+.form__buttom {
+    width: 358px;
+    height: 50px;
+    background-color: #000000;
+    border-radius: 2px;
+    margin: 48px auto 0;
+}
+
+.form__buttom:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    cursor: pointer;
+}
+
+@media screen and (max-width: 900px) {
+    .form__buttom {
+        width: 238px;
+        height: 46px;
+    }
+}

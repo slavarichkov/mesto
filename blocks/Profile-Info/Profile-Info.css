@@ -1,0 +1,14 @@
+.Profile-Info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 28px;
+}
+
+@media screen and (max-width: 900px) {
+    .Profile-Info {
+        text-align: center;
+        padding: 22.25px 0 0 0;
+        width: 100%;
+    }
+}

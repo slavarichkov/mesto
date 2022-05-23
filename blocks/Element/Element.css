@@ -1,0 +1,8 @@
+.Element {
+    max-width: 282px;
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    overflow: hidden;
+}

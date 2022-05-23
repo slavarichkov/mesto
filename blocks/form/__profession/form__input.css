@@ -1,0 +1,18 @@
+.form__input {
+    max-width: 358px;
+    margin: 30px 22px
+    
+    36px;
+    border-top-style: initial;
+    border-right-style: initial;
+    border-left-style: initial;
+    border-top-color: initial;
+    border-right-color: initial;
+    border-left-color: initial;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 0 0 13px 0;
+}
+
+.form__input:nth-child(1) {
+    margin-top: 0;
+}
