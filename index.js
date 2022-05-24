@@ -1,4 +1,4 @@
-const editButton = document.querySelector('.Edit-Button') 
+const editButton = document.querySelector('.edit-button') 
 const popup = document.querySelector('.popup')
 const saveButton = document.querySelector('.button')
 const closeIkon = document.querySelector('.closeIkon')

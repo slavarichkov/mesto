@@ -9,8 +9,28 @@
     border-left-color: initial;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     padding: 0 0 13px 0;
+    font-family: 'Inter', Arial, sans-serif;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 358px;
 }
 
 .form__input:nth-child(1) {
     margin-top: 0;
+}
+
+.form__input:nth-child(2) {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 901px) {
+    .form__input {
+    
+    }
+
+    .form__input:nth-child(2) {
+        margin-bottom: 0;
+    }
 }
