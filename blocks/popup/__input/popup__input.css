@@ -1,4 +1,4 @@
-.form__input {
+.popup__input {
     max-width: 358px;
     margin: 30px 36px 30px 36px;
     border-top-style: initial;
@@ -16,21 +16,21 @@
     max-width: 358px;
 }
 
-.form__input:nth-child(1) {
+.popup__input:nth-child(1) {
     margin-top: 0;
 }
 
-.form__input:nth-child(2) {
+.popup__input:nth-child(2) {
     margin-top: 0;
     margin-bottom: 0;
 }
 
 @media screen and (max-width: 901px) {
-    .form__input {
+    .popup__input {
     
     }
 
-    .form__input:nth-child(2) {
+    .popup__input:nth-child(2) {
         margin-bottom: 0;
     }
 }

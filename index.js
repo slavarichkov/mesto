@@ -1,10 +1,10 @@
-const editButton = document.querySelector('.edit-button') 
+const editButton = document.querySelector('.profile__edit-button') 
 const popup = document.querySelector('.popup')
-const saveButton = document.querySelector('.button')
-const closeIkon = document.querySelector('.closeIkon')
+const saveButton = document.querySelector('.popup__button')
+const closeIkon = document.querySelector('.popup__closeikon')
 const profileFirstname = document.querySelector('.profile__firstname')
-const firstnameInput = document.querySelector('.form__input_firstname')
-const professionInput = document.querySelector('.form__input_profession')
+const firstnameInput = document.querySelector('.popup__input_firstname')
+const professionInput = document.querySelector('.popup__input_profession')
 const profileSubtext = document.querySelector('.profile__subtext')
 
 editButton.addEventListener('click', function() {

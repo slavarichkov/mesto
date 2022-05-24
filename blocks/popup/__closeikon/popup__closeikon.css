@@ -1,4 +1,4 @@
-.closeIkon {
+.popup__closeikon {
     margin-left: auto;
     padding-bottom: 10px;
     width: 32px;
@@ -7,13 +7,13 @@
     top: -39px;
 }
 
-.closeIkon:hover {
+.popup__closeikon:hover {
     opacity: 0.6;
     cursor: pointer;
 }
 
 @media screen and (max-width: 900px) {
-    .closeIkon {
+    .popup__closeikon {
         position: unset;
         width: 20px;
     }

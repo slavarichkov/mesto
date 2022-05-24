@@ -1,4 +1,4 @@
-.button {
+.popup__button {
     width: 358px;
     background-color: #000000;
     border-radius: 2px;
@@ -13,13 +13,13 @@
     height: 50px;
 }
 
-.button:hover {
+.popup__button:hover {
     background-color: rgba(0, 0, 0, 0.8);
     cursor: pointer;
 }
 
 @media screen and (max-width: 900px) {
-    .button {
+    .popup__button {
         width: 238px;
         height: 46px;
         margin: 45px auto 25px;
