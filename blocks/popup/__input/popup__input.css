@@ -1,5 +1,4 @@
 .popup__input {
-    max-width: 358px;
     margin: 30px 36px 30px 36px;
     border-top-style: initial;
     border-right-style: initial;
@@ -26,9 +25,7 @@
 }
 
 @media screen and (max-width: 901px) {
-    .popup__input {
-    
-    }
+    .popup__input {}
 
     .popup__input:nth-child(2) {
         margin-bottom: 0;
