@@ -19,6 +19,13 @@ saveButton.addEventListener('click', function () {
     profileSubtext.textContent = professionInput.value;
 })
 
+document.addEventListener('keydown', function (event) {
+    if( event.code === 'Enter' ) 
+    popup.classList.remove('popup_open')
+    profileFirstname.textContent = firstnameInput.value;
+    profileSubtext.textContent = professionInput.value;
+})
+
 closeIkon.addEventListener('click', function () {
     popup.classList.remove('popup_open')
 })
