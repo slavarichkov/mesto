@@ -20,4 +20,4 @@ Android Требования к системе: Android 6.0 Marshmallow или �
 
 ###Сcылка
 
-[Сcылка](http://https://slavarichkov.github.io/mesto/)
+[Сcылка](http://slavarichkov.github.io/mesto/)
