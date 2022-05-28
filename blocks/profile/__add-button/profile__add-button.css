@@ -5,6 +5,11 @@
     height: 50px;
     background-color: #000000;
     margin-left: auto;
+    background-image: url(./../../../images/RectangleRect.svg);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: 22px 22px;
+    background-position: center center;
 }
 
 .profile__add-button:hover {
@@ -16,5 +21,6 @@
     .profile__add-button {
         margin: 36px auto 0;
         width: 282px;
+        background-size: 16px 16px;
     }
 }
