@@ -2,9 +2,15 @@
     margin-left: auto;
     padding-bottom: 10px;
     width: 32px;
+    height: 32px;
     position: absolute;
     right: -39px;
     top: -39px;
+    background-image: url(./../../../images/CloseIcon.svg);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
 }
 
 .popup__closeikon:hover {
@@ -14,7 +20,8 @@
 
 @media screen and (max-width: 900px) {
     .popup__closeikon {
-        position:unset;
+        position: unset;
         width: 20px;
+        height: 20px;
     }
 }
