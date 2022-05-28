@@ -17,5 +17,8 @@
         height: 18px;
         position: absolute;
         right: -30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }

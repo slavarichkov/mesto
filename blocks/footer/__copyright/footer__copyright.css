@@ -1,4 +1,4 @@
-.footer__title {
+.footer__copyright {
     font-family: 'Inter', Arial, sans-serif;
     font-weight: 400;
     font-size: 18px;
@@ -8,7 +8,9 @@
 }
 
 @media screen and (max-width: 900px) {
-    .footer__title {
+    .footer__copyright {
         padding-left: 19px;
+        font-size: 14px;
+        line-height: 17px;
     }
 }
