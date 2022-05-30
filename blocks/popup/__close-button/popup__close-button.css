@@ -1,4 +1,4 @@
-.popup__closeikon {
+.popup__close-button {
     margin-left: auto;
     padding-bottom: 10px;
     width: 32px;
@@ -14,15 +14,16 @@
     border: 0;
 }
 
-.popup__closeikon:hover {
+.popup__close-button:hover {
     opacity: 0.6;
     cursor: pointer;
 }
 
 @media screen and (max-width: 900px) {
-    .popup__closeikon {
+    .popup__close-button {
         position: unset;
         width: 20px;
         height: 20px;
+        margin-bottom: 16px;
     }
 }
