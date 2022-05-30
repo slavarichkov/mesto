@@ -3,7 +3,7 @@
     background-color: #000000;
     border: 0;
     border-radius: 2px;
-    margin: 48px auto 37px;
+    margin: 47px auto 35px;
     font-family: 'Inter', Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -25,7 +25,7 @@
     .popup__button {
         width: 238px;
         height: 46px;
-        margin: 43px auto 23px;
+        margin: 43px auto 25px;
         padding: 0;
         font-size: 14px;
         line-height: 17px;
