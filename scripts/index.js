@@ -1,6 +1,7 @@
 const editButton = document.querySelector('.profile__edit-button');
 const popup = document.querySelector('.popup');
 const saveButton = document.querySelector('.popup__button');
+const popupForm = document.querySelector('.popup__form');
 const closeButton = document.querySelector('.popup__close-button');
 const profileFirstname = document.querySelector('.profile__firstname');
 const firstnameInput = document.querySelector('.popup__input_field_firstname');
@@ -18,12 +19,12 @@ editButton.addEventListener('click', function () {
     professionInput.value = profileSubtext.textContent;
 })
 
-saveButton.addEventListener('click', function (event) {
-    event.preventDefault();
-    profileFirstname.textContent = firstnameInput.value;
-    profileSubtext.textContent = professionInput.value;
-    closePopUp();
-})
+popupForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        profileFirstname.textContent = firstnameInput.value;
+        profileSubtext.textContent = professionInput.value;
+        closePopUp();
+    })
 
 closeButton.addEventListener('click', closePopUp)
         
