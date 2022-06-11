@@ -32,6 +32,7 @@
 @import url(./../blocks/elements/__image-show/elements__image-show.css);
 @import url(./../blocks/elements/__image-boost/elements__image-boost.css);
 @import url(./../blocks/elements/__image-boost/_activated/elements__image-boost_activated.css);
+@import url(./../blocks/elements/__button-image/elements__button-image.css);
 @import url(./../blocks/elements/__image-title/elements__image-title.css);
 @import url(./../blocks/elements/__image-content/elements__image-content.css);
 @import url(./../blocks/element/__like/_activated/element__like_activeted.css);

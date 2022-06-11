@@ -117,7 +117,7 @@ containerOfImages.addEventListener('click', (evt) => {
 });
 
 // cвернуть увеличенное изображение
-const closeButtonBigImage = document.querySelector('.popup__close-button_image_big');
+const closeButtonBigImage = document.querySelector('.elements__button-image');
 closeButtonBigImage.addEventListener('click', () => {
     ImageScale.classList.remove('elements__image-boost_activated');
 });
