@@ -1,24 +1,25 @@
 const editButton = document.querySelector('.profile__edit-button');
-const popup = document.querySelector('.popup');
+const popupUserInput = document.querySelector('.popup_user_input');
 const closeButton = document.querySelector('.popup__close-button');
-const profileFirstname = document.querySelector('.profile__firstname');
-const firstnameInput = document.querySelector('.popup__input_field_firstname');
+const profileFirstName = document.querySelector('.profile__firstname');
+const firstNameInput = document.querySelector('.popup__input_field_firstname');
 const professionInput = document.querySelector('.popup__input_field_profession');
-const profileSubtext = document.querySelector('.profile__subtext');
-const popupForm = document.querySelector('.popup__form');
+const profileSubText = document.querySelector('.profile__subtext');
+const popupFormUserInput = document.querySelector('.popup__form_user_input');
 const addImageButton = document.querySelector('.profile__add-button');
 const popupImage = document.querySelector('.popup_image_content');
 const popupFormAddImage = document.querySelector('.popup__form_image_add');
 const popupCloseButtonImageContant = document.querySelector('.popup__close-button_image_contant');
 const userImageLink = document.querySelector('.popup__input_link_image');
 const userImageName = document.querySelector('.popup__input_name_image');
-// переменные для темплейт
-const userImageLoadWorkPiece = document.querySelector('.work-piece').content;
-const userElement = userImageLoadWorkPiece.querySelector('.element').cloneNode(true);
+const imageScale = document.querySelector('.popup_image_scale');
+const ImageBig = document.querySelector('.popup__image-scale');
+const imageBigText = document.querySelector('.popup__image-title');
+const closeButtonBigImage = document.querySelector('.popup__close-button_image_scale');
 const containerOfImages = document.querySelector('.elements')
 const elementLike = document.querySelector('.element__like');
 
-//**Общие функции попап**
+//**Общие функции попап----------------------------------------------------------------------
 function openPopup(option) {
     option.classList.add('popup_open');
 };
@@ -27,102 +28,93 @@ function closePopup(option) {
     option.classList.remove('popup_open');
 }
 
-//**Попап редактирования профиля**
+//**Попап редактирования профиля-------------------------------------------------------------------------
 // Открть 
-editButton.addEventListener('click', (event) => {
+const handleOpenInfoProfile = editButton.addEventListener('click', (event) => {
     event.preventDefault();
-    openPopup(popup);
+    openPopup(popupUserInput);
     // Поле введения имени профиля = Имя профиля
-    firstnameInput.value = profileFirstname.textContent;
+    firstNameInput.value = profileFirstName.textContent;
     // Поле введения профессии = описание профессии
-    professionInput.value = profileSubtext.textContent;
+    professionInput.value = profileSubText.textContent;
 });
 
 // Свернуть
-closeButton.addEventListener('click', () => {
-    closePopup(popup);
+const handleCloseInfoProfile = closeButton.addEventListener('click', () => {
+    closePopup(popupUserInput);
 });
 
-popupForm.addEventListener('submit', (event) => {
+const handlePopupSubmitInfoProfile = popupFormUserInput.addEventListener('submit', (event) => {
     event.preventDefault();
     // Имя профиля = Поле введения имени профиля
-    profileFirstname.textContent = firstnameInput.value;
+    profileFirstName.textContent = firstNameInput.value;
     // описание профессии = Поле введения профессии 
-    profileSubtext.textContent = professionInput.value;
-    closePopup(popup);
+    profileSubText.textContent = professionInput.value;
+    closePopup(popupUserInput);
 })
 
-// **Попап добавления картинок пользователем**
+// **Попап добавления картинок пользователем**----------------------------------------------------------------------
 // Открыть
-addImageButton.addEventListener('click', () => {
+const handlePopupOpenButtonImageContant = addImageButton.addEventListener('click', () => {
     openPopup(popupImage);
 });
 // Свернуть
-popupCloseButtonImageContant.addEventListener('click', () => {
+const handlePopupCloseButtonImageContant = popupCloseButtonImageContant.addEventListener('click', () => {
     closePopup(popupImage);
 });
 
-// добавление элемента**
+// наполнение карточки**-----------------------------------------------------------------------------
 function addImageUser(valueName, valueLink) {
+    // создание карточки из html, её наполнение
+    const userImageLoadWorkPiece = document.querySelector('.work-piece').content;
+    const userElement = userImageLoadWorkPiece.querySelector('.element').cloneNode(true);
     userElement.querySelector('.element__maskgroup').src = valueLink;
     userElement.querySelector('.element__maskgroup').alt = valueName;
-    containerOfImages.prepend(userElement);
+    userElement.querySelector('.element__title').textContent = valueName;
 }
 
-// слушатель на отправку формы добавления картинки**
+// добавляем карточку в общий список карточек в начало + cлушатели на карточку-------------------------------------------------
+function addCard(valueName, valueLink, parent) {
+    // заполнение карточки
+    parent.querySelector('.element__maskgroup').src = valueLink;
+    parent.querySelector('.element__maskgroup').alt = valueName;
+    parent.querySelector('.element__title').textContent = valueName;
+    // cлушатель лайк
+    const like = parent.querySelector('.element__like');
+    const handleLike = like.addEventListener('click', () => { like.classList.add('element__like_activeted') })
+    //слушатель удаления карточки
+    const buttonDelete = parent.querySelector('.element__button-delete');
+    const handleDelete = buttonDelete.addEventListener('click', () => { buttonDelete.closest('.element').remove() })
+    //слушатель увеличения изображения
+    const image = parent.querySelector('.element__maskgroup');
+    const handleImage = image.addEventListener('click', () => {
+        openPopup(imageScale);
+        ImageBig.setAttribute('src', image.getAttribute('src'));
+        imageBigText.textContent = image.getAttribute('alt');
+    })
+    // cвернуть увеличенное изображение
+    const handleCloseButtonBigImage = closeButtonBigImage.addEventListener('click', () => {
+        closePopup(imageScale);
+    });
+    // и добавляем в общий список карточек новую карточку
+    containerOfImages.prepend(parent);
+};
+
+// слушатель на отправку формы добавления картинки**--------------------------------------------------------------------------------
 const userImageNameField = document.querySelector('.popup__input_name_image');
 const userLinkImg = document.querySelector('.popup__input_link_image');
-const userImageNameInput = userElement.querySelector('.element__title');
 
-popupFormAddImage.addEventListener('submit', (event) => {
+const handlePopupFormAddImage = popupFormAddImage.addEventListener('submit', (event) => {
     event.preventDefault();
-    userImageNameInput.textContent = userImageNameField.value;
-    addImageUser(userImageNameField.value, userLinkImg.value);
+    const userImageLoadWorkPiece = document.querySelector('.work-piece').content;
+    const userElement = userImageLoadWorkPiece.querySelector('.element').cloneNode(true);
+    // const userImageNameInput = userElement.querySelector('.element__title');
+    addCard(userImageNameField.value, userLinkImg.value, userElement);
     closePopup(popupImage);
 });
 
-//**добавление лайка**
-document.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('element__like')) {
-        evt.target.classList.add('element__like_activeted')
-    }
-});
-
-//**удалить изображение пользователя**
-document.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains(('element__button-delete'))) {
-        const deleteButton = evt.target;
-        const element = deleteButton.closest('.element');
-        element.remove();
-    }
-});
-
-// **увеличение изображений**
-const ImageScale = document.querySelector('.elements__image-boost');
-
-containerOfImages.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('element__maskgroup')) {
-        // вкл видимое увеличенное изображение
-        ImageScale.classList.add('elements__image-boost_activated');
-        // заменяем ссылки на изображении
-        let image = evt.target;
-        let imageLink = image.getAttribute('src');
-        const ImageBig = document.querySelector('.elements__image-big');
-        const ImageBigLink = ImageBig.setAttribute('src', imageLink);
-        //заменяем название картинки
-        let imageText = image.getAttribute('alt');
-        const imageBigText = document.querySelector('.elements__image-title');
-        imageBigText.textContent = imageText;
-    }
-});
-
-// cвернуть увеличенное изображение
-const closeButtonBigImage = document.querySelector('.elements__button-image');
-closeButtonBigImage.addEventListener('click', () => {
-    ImageScale.classList.remove('elements__image-boost_activated');
-});
-
-// **Автоматическое создание 6 карточек при запустке страницы
+// **Автоматическое создание 6 карточек при запустке страницы---------------------------------------------------------------------
+// массив карточек
 const initialCards = [
     {
         name: 'Архыз',
@@ -149,16 +141,12 @@ const initialCards = [
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ];
-
+// пройтись по каждому объекту в массиве и создать карточку
 initialCards.forEach(function (item) {
-    //*?*задать вопрос на вебинаре, почему если переменные ниже объявлены глобально, но не указаны локально - не добавляются карточки, добавляется только 1
     const userImageLoadWorkPiece = document.querySelector('.work-piece').content;
     const userElement = userImageLoadWorkPiece.querySelector('.element').cloneNode(true);
-    const userImageNameInput = userElement.querySelector('.element__title');
-
-    userElement.querySelector('.element__maskgroup').src = item.link;
-    userElement.querySelector('.element__maskgroup').alt = item.name;
-    userImageNameInput.textContent = item.name;
-    containerOfImages.prepend(userElement);
+    addCard(item.name, item.link, userElement);
 });
+
+
 

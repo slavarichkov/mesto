@@ -28,8 +28,7 @@
             <!-- заготовка для изображения пользователя -->
             <template class="work-piece">
                 <div class="element">
-                    <img class="element__maskgroup" src="#"
-                        alt="">
+                    <img class="element__maskgroup" src="#" alt="">
                     <div class="element__group">
                         <h2 class="element__title"></h2>
                         <button class="element__like" type="button"></button>
@@ -37,23 +36,15 @@
                     </div>
                 </div>
             </template>
-            <!-- Масштабированное изображение -->
-            <div class="elements__image-boost">
-                <div class="elements__image-content">
-                    <button class="elements__button-image" type="button"></button>
-                    <img class="elements__image-big" src="#" alt="#">
-                    <p class="elements__image-title">Карачаево-Черкесия</p>
-                </div>
-            </div>
         </section>
     </main>
     <footer class="footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup_user_input">
         <div class="popup__content">
             <button class="popup__close-button" type="button"></button>
-            <form class="popup__form" name="form">
+            <form class="popup__form popup__form_user_input" name="form">
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <input type="text" placeholder="Имя" class="popup__input popup__input_field_firstname" name="firstname">
                 <input type="text" placeholder="Профессия" class="popup__input popup__input_field_profession"
@@ -73,6 +64,14 @@
                     name="profession">
                 <button class="popup__button" type="submit">Сохранить</button>
             </form>
+        </div>
+    </div>
+    <!-- Масштабированное изображение -->
+    <div class="popup popup_image_scale">
+        <div class="popup__image-content">
+            <button class="popup__close-button popup__close-button_image_scale" type="button"></button>
+            <img class="popup__image-scale" src="#" alt="#">
+            <p class="popup__image-title">Карачаево-Черкесия</p>
         </div>
     </div>
     <script src="./scripts/index.js"></script>
