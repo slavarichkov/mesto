@@ -46,8 +46,8 @@
             <button class="popup__close-button" type="button"></button>
             <form class="popup__form popup__form_user_input" name="form">
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <input type="text" placeholder="Имя" class="popup__input popup__input_field_firstname" name="firstname">
-                <input type="text" placeholder="Профессия" class="popup__input popup__input_field_profession"
+                <input required type="text" placeholder="Имя" class="popup__input popup__input_field_firstname" name="firstname">
+                <input required type="text" placeholder="Профессия" class="popup__input popup__input_field_profession"
                     name="profession">
                 <button class="popup__button" type="submit">Сохранить</button>
             </form>
@@ -59,9 +59,9 @@
             <button class="popup__close-button popup__close-button_image_contant" type="button"></button>
             <form class="popup__form popup__form_image_add" name="form">
                 <h2 class="popup__title">Новое место</h2>
-                <input type="text" placeholder="Название" class="popup__input popup__input_name_image" name="firstname">
-                <input type="text" placeholder="Ссылка на картинку" class="popup__input popup__input_link_image"
-                    name="profession">
+                <input required type="text" placeholder="Название" class="popup__input popup__input_name_image" name="image-title">
+                <input required type="url" placeholder="Ссылка на картинку" class="popup__input popup__input_link_image"
+                    name="link-caption">
                 <button class="popup__button" type="submit">Сохранить</button>
             </form>
         </div>
