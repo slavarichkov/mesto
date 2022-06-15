@@ -68,25 +68,18 @@ function addImageUser(valueName, valueLink) {
     // создание карточки из html, её наполнение
     const userImageLoadWorkPiece = document.querySelector('.work-piece').content;
     const userElement = userImageLoadWorkPiece.querySelector('.element').cloneNode(true);
-    userElement.querySelector('.element__maskgroup').src = valueLink;
-    userElement.querySelector('.element__maskgroup').alt = valueName;
+    const userElementInfo = userElement.querySelector('.element__maskgroup');
+    userElementInfo.src = valueLink;
+    userElementInfo.alt = valueName;
     userElement.querySelector('.element__title').textContent = valueName;
-}
-
-// добавляем карточку в общий список карточек в начало + cлушатели на карточку-------------------------------------------------
-function addCard(valueName, valueLink, parent) {
-    // заполнение карточки
-    parent.querySelector('.element__maskgroup').src = valueLink;
-    parent.querySelector('.element__maskgroup').alt = valueName;
-    parent.querySelector('.element__title').textContent = valueName;
     // cлушатель лайк
-    const like = parent.querySelector('.element__like');
+    const like = userElement.querySelector('.element__like');
     const handleLike = like.addEventListener('click', () => { like.classList.add('element__like_activeted') })
     //слушатель удаления карточки
-    const buttonDelete = parent.querySelector('.element__button-delete');
+    const buttonDelete = userElement.querySelector('.element__button-delete');
     const handleDelete = buttonDelete.addEventListener('click', () => { buttonDelete.closest('.element').remove() })
     //слушатель увеличения изображения
-    const image = parent.querySelector('.element__maskgroup');
+    const image = userElement.querySelector('.element__maskgroup');
     const handleImage = image.addEventListener('click', () => {
         openPopup(imageScale);
         ImageBig.setAttribute('src', image.getAttribute('src'));
@@ -96,8 +89,14 @@ function addCard(valueName, valueLink, parent) {
     const handleCloseButtonBigImage = closeButtonBigImage.addEventListener('click', () => {
         closePopup(imageScale);
     });
+    return userElement;
+}
+
+// добавляем карточку в общий список карточек в начало + cлушатели на карточку-
+function addCard(valueName, valueLink) {
+    const returnImageUser = addImageUser(valueName, valueLink)
     // и добавляем в общий список карточек новую карточку
-    containerOfImages.prepend(parent);
+    containerOfImages.prepend(returnImageUser);
 };
 
 // слушатель на отправку формы добавления картинки**--------------------------------------------------------------------------------
@@ -143,9 +142,7 @@ const initialCards = [
 ];
 // пройтись по каждому объекту в массиве и создать карточку
 initialCards.forEach(function (item) {
-    const userImageLoadWorkPiece = document.querySelector('.work-piece').content;
-    const userElement = userImageLoadWorkPiece.querySelector('.element').cloneNode(true);
-    addCard(item.name, item.link, userElement);
+    addCard(item.name, item.link);
 });
 
 
