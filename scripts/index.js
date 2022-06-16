@@ -1,6 +1,6 @@
 const editButton = document.querySelector('.profile__edit-button');
 const popupUserInput = document.querySelector('.popup_user_input');
-const closeButton = document.querySelector('.popup__close-button');
+const closeButtonProfileEdit = document.querySelector('.popup__close-button_profile_edit');
 const profileFirstName = document.querySelector('.profile__firstname');
 const firstNameInput = document.querySelector('.popup__input_field_firstname');
 const professionInput = document.querySelector('.popup__input_field_profession');
@@ -13,11 +13,12 @@ const popupCloseButtonImageContant = document.querySelector('.popup__close-butto
 const userImageLink = document.querySelector('.popup__input_link_image');
 const userImageName = document.querySelector('.popup__input_name_image');
 const imageScale = document.querySelector('.popup_image_scale');
-const ImageBig = document.querySelector('.popup__image-scale');
+const imageBig = document.querySelector('.popup__image-scale');
 const imageBigText = document.querySelector('.popup__image-title');
 const closeButtonBigImage = document.querySelector('.popup__close-button_image_scale');
 const containerOfImages = document.querySelector('.elements')
 const elementLike = document.querySelector('.element__like');
+const userImageLoadWorkPiece = document.querySelector('.work-piece').content;
 
 //**Общие функции попап----------------------------------------------------------------------
 function openPopup(option) {
@@ -30,7 +31,7 @@ function closePopup(option) {
 
 //**Попап редактирования профиля-------------------------------------------------------------------------
 // Открть 
-const handleOpenInfoProfile = editButton.addEventListener('click', (event) => {
+editButton.addEventListener('click', (event) => {
     event.preventDefault();
     openPopup(popupUserInput);
     // Поле введения имени профиля = Имя профиля
@@ -40,11 +41,11 @@ const handleOpenInfoProfile = editButton.addEventListener('click', (event) => {
 });
 
 // Свернуть
-const handleCloseInfoProfile = closeButton.addEventListener('click', () => {
+closeButtonProfileEdit.addEventListener('click', () => {
     closePopup(popupUserInput);
 });
 
-const handlePopupSubmitInfoProfile = popupFormUserInput.addEventListener('submit', (event) => {
+popupFormUserInput.addEventListener('submit', (event) => {
     event.preventDefault();
     // Имя профиля = Поле введения имени профиля
     profileFirstName.textContent = firstNameInput.value;
@@ -55,18 +56,22 @@ const handlePopupSubmitInfoProfile = popupFormUserInput.addEventListener('submit
 
 // **Попап добавления картинок пользователем**----------------------------------------------------------------------
 // Открыть
-const handlePopupOpenButtonImageContant = addImageButton.addEventListener('click', () => {
+addImageButton.addEventListener('click', () => {
     openPopup(popupImage);
 });
 // Свернуть
-const handlePopupCloseButtonImageContant = popupCloseButtonImageContant.addEventListener('click', () => {
+popupCloseButtonImageContant.addEventListener('click', () => {
     closePopup(popupImage);
+});
+
+// cвернуть увеличенное изображение
+closeButtonBigImage.addEventListener('click', () => {
+    closePopup(imageScale);
 });
 
 // наполнение карточки**-----------------------------------------------------------------------------
 function addImageUser(valueName, valueLink) {
     // создание карточки из html, её наполнение
-    const userImageLoadWorkPiece = document.querySelector('.work-piece').content;
     const userElement = userImageLoadWorkPiece.querySelector('.element').cloneNode(true);
     const userElementInfo = userElement.querySelector('.element__maskgroup');
     userElementInfo.src = valueLink;
@@ -74,25 +79,24 @@ function addImageUser(valueName, valueLink) {
     userElement.querySelector('.element__title').textContent = valueName;
     // cлушатель лайк
     const like = userElement.querySelector('.element__like');
-    const handleLike = like.addEventListener('click', () => { like.classList.add('element__like_activeted') })
+    const handleLike = (event) => { event.target.classList.toggle('element__like_activeted') };
+    like.addEventListener('click', handleLike);
     //слушатель удаления карточки
     const buttonDelete = userElement.querySelector('.element__button-delete');
-    const handleDelete = buttonDelete.addEventListener('click', () => { buttonDelete.closest('.element').remove() })
+    const handleDelete = () => { buttonDelete.closest('.element').remove() };
+    buttonDelete.addEventListener('click', handleDelete);
     //слушатель увеличения изображения
     const image = userElement.querySelector('.element__maskgroup');
-    const handleImage = image.addEventListener('click', () => {
+    image.addEventListener('click', () => {
         openPopup(imageScale);
-        ImageBig.setAttribute('src', image.getAttribute('src'));
-        imageBigText.textContent = image.getAttribute('alt');
+        imageBig.setAttribute('src', valueLink);
+        imageBig.setAttribute('alt', valueName);
+        imageBigText.textContent = valueName;
     })
-    // cвернуть увеличенное изображение
-    const handleCloseButtonBigImage = closeButtonBigImage.addEventListener('click', () => {
-        closePopup(imageScale);
-    });
     return userElement;
 }
 
-// добавляем карточку в общий список карточек в начало + cлушатели на карточку-
+// добавляем карточку в общий список карточек в начало-----------------------------------------------------------
 function addCard(valueName, valueLink) {
     const returnImageUser = addImageUser(valueName, valueLink)
     // и добавляем в общий список карточек новую карточку
@@ -103,12 +107,11 @@ function addCard(valueName, valueLink) {
 const userImageNameField = document.querySelector('.popup__input_name_image');
 const userLinkImg = document.querySelector('.popup__input_link_image');
 
-const handlePopupFormAddImage = popupFormAddImage.addEventListener('submit', (event) => {
+popupFormAddImage.addEventListener('submit', (event) => {
     event.preventDefault();
-    const userImageLoadWorkPiece = document.querySelector('.work-piece').content;
     const userElement = userImageLoadWorkPiece.querySelector('.element').cloneNode(true);
-    // const userImageNameInput = userElement.querySelector('.element__title');
-    addCard(userImageNameField.value, userLinkImg.value, userElement);
+    addCard(userImageNameField.value, userLinkImg.value);
+    popupFormAddImage.reset();
     closePopup(popupImage);
 });
 
