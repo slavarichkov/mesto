@@ -37,6 +37,6 @@
 @import url(./../blocks/popup/_image_scale/popup_image_scale.css);
 @import url(./../blocks/popup/__input-conainer/popup__input-conainer.css);
 @import url(./../blocks/popup/__input/_type_error/form__input_type_error.css);
-@import url(./../blocks/popup/__input/_text_error/popup__input_text_error.css);
-@import url(./../blocks/popup/__input/_show_error/popup__input_show_error.css);
+@import url(./../blocks/popup/__text-error/popup__text-error.css);
+@import url(./../blocks/popup/__text-error/_show/popup__text-error_show.css);
 

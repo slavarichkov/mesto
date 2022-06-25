@@ -17,11 +17,11 @@ function activateError(inputElement, message) {
     // родитель инпута для дальнейшего поиска спана
     const conteinerElement = inputElement.closest('.popup__input-conainer');
     // спан относительно родителя
-    const errorText = conteinerElement.querySelector('.popup__input_text_error');
+    const errorText = conteinerElement.querySelector('.popup__text-error');
     // текст ошибки
     errorText.textContent = message;
     // добавляем видимость для ошибки ( спан внутри формы и инпута)
-    errorText.classList.add('popup__input_show_error');
+    errorText.classList.add('popup__text-error_show');
     //добавляем красное подчеркивание инпуту
     inputElement.classList.add('form__input_type_error');
 }
@@ -31,9 +31,9 @@ function deleteError(inputElement) {
     // родитель инпута для дальнейшего поиска спана
     const conteinerElement = inputElement.closest('.popup__input-conainer');
     // спан относительно родителя
-    const errorText = conteinerElement.querySelector('.popup__input_text_error');
+    const errorText = conteinerElement.querySelector('.popup__text-error');
     // добавляем видимость для ошибки ( спан внутри формы и инпута)
-    errorText.classList.remove('popup__input_show_error');
+    errorText.classList.remove('popup__text-error_show');
     //добавляем красное подчеркивание инпуту
     inputElement.classList.remove('form__input_type_error');
 }
