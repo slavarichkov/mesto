@@ -19,6 +19,9 @@ const closeButtonBigImage = document.querySelector('.popup__close-button_image_s
 const containerOfImages = document.querySelector('.elements')
 const elementLike = document.querySelector('.element__like');
 const userImageLoadWorkPiece = document.querySelector('.work-piece').content;
+const popupInputAll = document.querySelector('.popup__input');
+const popup = document.querySelector('.popup__form');
+
 
 //**Общие функции попап----------------------------------------------------------------------
 function openPopup(option) {
@@ -30,7 +33,7 @@ function closePopup(option) {
 }
 
 //**Попап редактирования профиля-------------------------------------------------------------------------
-// Открть 
+// Открыть 
 editButton.addEventListener('click', (event) => {
     event.preventDefault();
     openPopup(popupUserInput);
@@ -45,6 +48,7 @@ closeButtonProfileEdit.addEventListener('click', () => {
     closePopup(popupUserInput);
 });
 
+// слушатель на добавление информации о юзере
 popupFormUserInput.addEventListener('submit', (event) => {
     event.preventDefault();
     // Имя профиля = Поле введения имени профиля
@@ -62,6 +66,23 @@ addImageButton.addEventListener('click', () => {
 // Свернуть
 popupCloseButtonImageContant.addEventListener('click', () => {
     closePopup(popupImage);
+    popupFormAddImage.reset();
+});
+
+// свернуть все попапы по ESС
+document.addEventListener('keydown', (e) => {
+    if (e.keyCode === 27) {
+        closePopup(popupImage);
+        closePopup(popupUserInput);
+    }
+})
+
+// свернуть все попапы по клику на оверлей
+document.addEventListener('click', function (event) {
+    if (event.target.classList.contains("popup_overlay")){
+        closePopup(popupImage);
+        closePopup(popupUserInput);
+    }
 });
 
 // cвернуть увеличенное изображение
@@ -147,6 +168,5 @@ const initialCards = [
 initialCards.forEach(function (item) {
     addCard(item.name, item.link);
 });
-
 
 
