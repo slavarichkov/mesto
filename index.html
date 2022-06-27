@@ -47,17 +47,19 @@
             <button class="popup__close-button popup__close-button_profile_edit" type="button"></button>
             <form class="popup__form popup__form_user_input" name="form" novalidate>
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <div class="popup__input-conainer">
-                    <input type="text" placeholder="Имя" class="popup__input popup__input_field_firstname"
-                        name="firstname" id="username-input" minlength="2" maxlength="40" required>
-                    <span class="popup__text-error" id="error-firstname"></span>
+                <div class="popup__set">
+                    <div class="popup__input-conainer">
+                        <input type="text" placeholder="Имя" class="popup__input popup__input_field_firstname"
+                            name="firstname" id="username-input" minlength="2" maxlength="40" required>
+                        <span class="popup__text-error" id="error-firstname"></span>
+                    </div>
+                    <div class="popup__input-conainer">
+                        <input type="text" placeholder="Профессия" class="popup__input popup__input_field_profession"
+                            name="profession" id="profession-input" minlength="2" maxlength="200" required>
+                        <span class="popup__text-error" id="error-text"></span>
+                    </div>
+                    <button class="popup__button popup__button_user_info" type="submit">Сохранить</button>
                 </div>
-                <div class="popup__input-conainer">
-                    <input type="text" placeholder="Профессия" class="popup__input popup__input_field_profession"
-                        name="profession" id="profession-input" minlength="2" maxlength="200" required>
-                    <span class="popup__text-error" id="error-text"></span>
-                </div>
-                <button class="popup__button popup__button_user_info" type="submit">Сохранить</button>
             </form>
         </div>
     </div>
@@ -67,17 +69,19 @@
             <button class="popup__close-button popup__close-button_image_contant" type="button"></button>
             <form class="popup__form popup__form_image_add" name="form" novalidate>
                 <h2 class="popup__title">Новое место</h2>
-                <div class="popup__input-conainer">
-                    <input type="text" placeholder="Название" class="popup__input popup__input_name_image"
-                        name="image-title" id="input-image" minlength="2" maxlength="30" required>
-                    <span class="popup__text-error" id="error-image"></span>
+                <div class="popup__set">
+                    <div class="popup__input-conainer">
+                        <input type="text" placeholder="Название" class="popup__input popup__input_name_image"
+                            name="image-title" id="input-image" minlength="2" maxlength="30" required>
+                        <span class="popup__text-error" id="error-image"></span>
+                    </div>
+                    <div class="popup__input-conainer">
+                        <input type="url" placeholder="Ссылка на картинку" class="popup__input popup__input_link_image"
+                            name="link" required>
+                        <span class="popup__text-error" id="error-link"></span>
+                    </div>
+                    <button class="popup__button popup__button_user_image" type="submit">Сохранить</button>
                 </div>
-                <div class="popup__input-conainer">
-                    <input type="url" placeholder="Ссылка на картинку" class="popup__input popup__input_link_image"
-                        name="link" required>
-                    <span class="popup__text-error" id="error-link"></span>
-                </div>
-                <button class="popup__button popup__button_user_image" type="submit">Сохранить</button>
             </form>
         </div>
     </div>
@@ -91,6 +95,7 @@
     </div>
     <script src="./scripts/index.js"></script>
     <script src="./scripts/validate.js"></script>
+
 </body>
 
 </html>

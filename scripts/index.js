@@ -22,14 +22,31 @@ const userImageLoadWorkPiece = document.querySelector('.work-piece').content;
 const popupInputAll = document.querySelector('.popup__input');
 const popup = document.querySelector('.popup__form');
 
-
 //**Общие функции попап----------------------------------------------------------------------
+// свернуть все попапы по ESС
+function closeByEscape(evt, option) {
+    if (evt.keyCode === 27) {
+        closePopup(option);
+    }
+}
+
+// свернуть все попапы по клику на оверлей
+function closeByOverPopup(e, options) {
+    if (e.target.classList.contains("popup_overlay")) {
+        closePopup(options);
+    }
+}
+
 function openPopup(option) {
     option.classList.add('popup_open');
+    document.addEventListener('keydown', (e) => closeByEscape(e, option));
+    document.addEventListener('click', (e) => closeByOverPopup(e, option));
 };
 
 function closePopup(option) {
     option.classList.remove('popup_open');
+    document.removeEventListener('keydown', (e) => closeByEscape(e, option));
+    document.removeEventListener('keydown', (e) => closeByOverPopup(e, option));
 }
 
 //**Попап редактирования профиля-------------------------------------------------------------------------
@@ -69,22 +86,6 @@ popupCloseButtonImageContant.addEventListener('click', () => {
     popupFormAddImage.reset();
 });
 
-// свернуть все попапы по ESС
-document.addEventListener('keydown', (e) => {
-    if (e.keyCode === 27) {
-        closePopup(popupImage);
-        closePopup(popupUserInput);
-    }
-})
-
-// свернуть все попапы по клику на оверлей
-document.addEventListener('click', function (event) {
-    if (event.target.classList.contains("popup_overlay")){
-        closePopup(popupImage);
-        closePopup(popupUserInput);
-    }
-});
-
 // cвернуть увеличенное изображение
 closeButtonBigImage.addEventListener('click', () => {
     closePopup(imageScale);
@@ -94,9 +95,9 @@ closeButtonBigImage.addEventListener('click', () => {
 function addImageUser(valueName, valueLink) {
     // создание карточки из html, её наполнение
     const userElement = userImageLoadWorkPiece.querySelector('.element').cloneNode(true);
-    const userElementInfo = userElement.querySelector('.element__maskgroup');
-    userElementInfo.src = valueLink;
-    userElementInfo.alt = valueName;
+    const cardImage = userElement.querySelector('.element__maskgroup');
+    cardImage.src = valueLink;
+    cardImage.alt = valueName;
     userElement.querySelector('.element__title').textContent = valueName;
     // cлушатель лайк
     const like = userElement.querySelector('.element__like');
@@ -107,8 +108,8 @@ function addImageUser(valueName, valueLink) {
     const handleDelete = () => { buttonDelete.closest('.element').remove() };
     buttonDelete.addEventListener('click', handleDelete);
     //слушатель увеличения изображения
-    const image = userElement.querySelector('.element__maskgroup');
-    image.addEventListener('click', () => {
+    // const image = userElement.querySelector('.element__maskgroup');
+    cardImage.addEventListener('click', () => {
         openPopup(imageScale);
         imageBig.setAttribute('src', valueLink);
         imageBig.setAttribute('alt', valueName);

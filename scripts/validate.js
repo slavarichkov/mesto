@@ -1,91 +1,97 @@
-// кнопка отправки формы добавления изображения
-const buttonAddUserImage = document.querySelector('.popup__button_user_image');
-// все инпуты внутри формы доб изображения. popupImage - блок, в котором кнопка и форма
-const inputList = Array.from(popupImage.querySelectorAll('input'));
-// все инпуты внутри формы редактирования информации пользователя
-const inputListUserInfo = Array.from(popupUserInput.querySelectorAll('input'));
-// кнопка отправки формы информации пользователя
-const buttonAddUserInfo = document.querySelector('.popup__button_user_info');
 
-
-// проверка на валидность инпута //
-function isInputValid(inputElement) {
-    return inputElement.checkValidity();
-}
-//показать ошибку //
-function activateError(inputElement, message) {
-    // родитель инпута для дальнейшего поиска спана
-    const conteinerElement = inputElement.closest('.popup__input-conainer');
-    // спан относительно родителя
-    const errorText = conteinerElement.querySelector('.popup__text-error');
-    // текст ошибки
-    errorText.textContent = message;
-    // добавляем видимость для ошибки ( спан внутри формы и инпута)
-    errorText.classList.add('popup__text-error_show');
-    //добавляем красное подчеркивание инпуту
+// показать ошибку, принимает форму, инпут, сообщение об ошибке
+const showInputError = (formElement, inputElement, errorMessage) => {
+    // получаем ошибку по уникальному айди
+    // const aerrorElement = formElement.querySelector('.popup__text-error');
+    const inputCont = inputElement.closest('.popup__input-conainer');
+    const errorElement = inputCont.querySelector('.popup__text-error');
+    console.log(inputElement)
+    console.log(errorElement)
+    console.log(formElement)
+    console.log(inputCont)
+    // делаем рамку красной, добавляем класс инпуту
     inputElement.classList.add('form__input_type_error');
-}
+    // выдергиваем ошибку, чтобы добавить в спан и отобразить
+    errorElement.textContent = errorMessage;
+    // делаем видимой ошибку
+    errorElement.classList.add('popup__text-error_show');
+};
 
-// скрыть ошибку //
-function deleteError(inputElement) {
-    // родитель инпута для дальнейшего поиска спана
-    const conteinerElement = inputElement.closest('.popup__input-conainer');
-    // спан относительно родителя
-    const errorText = conteinerElement.querySelector('.popup__text-error');
-    // добавляем видимость для ошибки ( спан внутри формы и инпута)
-    errorText.classList.remove('popup__text-error_show');
-    //добавляем красное подчеркивание инпуту
+//   спрятать ошибку инпута
+const hideInputError = (formElement, inputElement) => {
+    // ловим ошибку
+    const errorElement = formElement.querySelector(`.popup__text-error`);
+    // Удаляем классы подчеркивания и видимости текста
     inputElement.classList.remove('form__input_type_error');
+    errorElement.classList.remove('popup__text-error_show');
+    // очищаем
+    errorElement.textContent = '';
+};
+
+//   проверка на валидность инпута
+const checkInputValidity = (formElement, inputElement) => {
+    if (!inputElement.validity.valid) {
+        showInputError(formElement, inputElement, inputElement.validationMessage);
+    } else {
+        hideInputError(formElement, inputElement);
+    }
+};
+
+//   добавление слушателя
+const setEventListeners = (formElement) => {
+    // получаем массив всех инпутов внутри формы 
+    const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+    // находим кнопку внутри формы
+    const buttonElement = formElement.querySelector('.popup__button');
+    // вкл кнопку
+    toggleButtonState(inputList, buttonElement);
+    // проходим по массиву и проверяем при вводе валидность поля и меняем поведение кнопки в зависимости от валидности
+    inputList.forEach((inputElement) => {
+        inputElement.addEventListener('input', function () {
+            checkInputValidity(formElement, inputElement);
+            toggleButtonState(inputList, buttonElement);
+        });
+    });
+};
+
+
+const enableValidation = () => {
+    // получаем массив из всех форм
+    const formList = Array.from(document.querySelectorAll('.popup__form'));
+    // проходим по каждой форме
+    formList.forEach((formElement) => {
+        // навешиваем слушатель - сбрасываем стандартные действия
+        formElement.addEventListener('submit', function (evt) {
+            evt.preventDefault();
+        });
+        //   получаем массив "контейнера" внутри формы в котором находятся инпуты и кнопка отправки
+        const fieldsetList = Array.from(formElement.querySelectorAll('.popup__set'));
+        //   по каждому контейнеру проходим функцией о добавлении слушателя и проверке на валидацию
+        fieldsetList.forEach((fieldSet) => {
+            setEventListeners(fieldSet);
+            console.log(fieldSet);
+        });
+
+    }
+    )
 }
 
-// управление кнопкой //
-function controlButton(buttonName, arrayValidInput) {
-    if (arrayValidInput.includes(false) === true) {
-        buttonName.disabled = true;
+enableValidation();
+
+//   отображение неверного ввода
+function hasInvalidInput(inputList) {
+    return inputList.some((inputElement) => {
+        return !inputElement.validity.valid;
+    });
+}
+
+//   состояние кнопки
+function toggleButtonState(inputList, buttonElement) {
+    if (hasInvalidInput(inputList)) {
+        buttonElement.classList.add('popup__button_inactive');
+        // buttonElement.disabled = true;
     } else {
-        buttonName.disabled = false;
+        buttonElement.classList.remove('popup__button_inactive');
+        // buttonElement.disabled = false;
     }
 }
-
-// управление показом ошибки
-function controleError(inputElement, arrayValidInput) {
-    if (!isInputValid(inputElement) === true) {
-        activateError(inputElement, inputElement.validationMessage);
-    } else {
-        deleteError(inputElement)
-    }
-}
-
-// Валидация формы добавления изображения-------------------------------------------------------------------------------------------------
-
-// popupFormAddImage - форма отправки изображени **
-popupFormAddImage.addEventListener('input', function (evt) {
-    const arrayValidInput = []
-
-    inputList.forEach(inputElement => {
-        controleError(inputElement, arrayValidInput)
-        // наполняем массив (находится в studyInputValid) значениями для проверки есть ли хоть одно невалидное поле, для функции controlButton
-        arrayValidInput.push(isInputValid(inputElement))
-    });
-
-    // управление кнопкой в зависимости есть в массиве невалидные инпуты или нет
-    controlButton(buttonAddUserImage, arrayValidInput);
-});
-
-
-// Валидация формы добавления информации пользователя-------------------------------------------------------------------------------------------------
-
-popupFormUserInput.addEventListener('input', function (evt) {
-    const arrayValidInput = []
-
-    inputListUserInfo.forEach(inputElement => {
-        controleError(inputElement, arrayValidInput);
-        // наполняем массив (находится в studyInputValid) значениями для проверки есть ли хоть одно невалидное поле, для функции controlButton
-        arrayValidInput.push(isInputValid(inputElement))
-    });
-
-    // управление кнопкой в зависимости есть в массиве невалидные инпуты или нет
-    controlButton(buttonAddUserInfo, arrayValidInput);
-});
-
-
