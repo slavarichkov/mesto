@@ -8,7 +8,7 @@ const config = {
     textError: '.popup__text-error',
     popupSet: '.popup__set',
     typeErrorOn: 'form__input_type_error',
-  }
+}
 
 // показать ошибку, принимает форму, инпут, сообщение об ошибке
 const showInputError = (formElement, inputElement, errorMessage) => {
@@ -60,7 +60,6 @@ const setEventListeners = (formElement) => {
     });
 };
 
-
 const enableValidation = (config) => {
     // получаем массив из всех форм
     const formList = Array.from(document.querySelectorAll(config.formSelector));
@@ -76,7 +75,6 @@ const enableValidation = (config) => {
         fieldsetList.forEach((fieldSet) => {
             setEventListeners(fieldSet);
         });
-
     }
     )
 }
@@ -89,6 +87,7 @@ function hasInvalidInput(inputList) {
         return !inputElement.validity.valid;
     });
 }
+
 
 //   состояние кнопки
 function toggleButtonState(inputList, buttonElement) {
