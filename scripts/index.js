@@ -24,35 +24,35 @@ const popup = document.querySelector('.popup__form');
 
 //**Общие функции попап----------------------------------------------------------------------
 // свернуть все попапы по ESС
-function closeByEscape(evt, option) {
-    if (evt.keyCode === 27) {
-        closePopup(option);
+function closeByEscape(e) {
+    if (e.keyCode === 27) {
+        const openPopup = document.querySelector('.popup_open')
+        closePopup(openPopup);
     }
 }
 
 // свернуть все попапы по клику на оверлей
-function closeByOverPopup(e, options) {
+function closeByOverPopup(e) {
     if (e.target.classList.contains("popup_overlay")) {
-        closePopup(options);
+        closePopup(e.target);
     }
 }
 
 function openPopup(option) {
     option.classList.add('popup_open');
-    document.addEventListener('keydown', (e) => closeByEscape(e, option));
-    document.addEventListener('click', (e) => closeByOverPopup(e, option));
+    document.addEventListener('keydown', closeByEscape);
+    option.addEventListener('click', closeByOverPopup);
 };
 
 function closePopup(option) {
     option.classList.remove('popup_open');
-    document.removeEventListener('keydown', (e) => closeByEscape(e, option));
-    document.removeEventListener('keydown', (e) => closeByOverPopup(e, option));
+    option.removeEventListener('keydown', closeByEscape);
+    option.removeEventListener('keydown', closeByOverPopup);
 }
 
 //**Попап редактирования профиля-------------------------------------------------------------------------
 // Открыть 
 editButton.addEventListener('click', (event) => {
-    event.preventDefault();
     openPopup(popupUserInput);
     // Поле введения имени профиля = Имя профиля
     firstNameInput.value = profileFirstName.textContent;
