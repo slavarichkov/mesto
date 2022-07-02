@@ -21,6 +21,7 @@ const elementLike = document.querySelector('.element__like');
 const userImageLoadWorkPiece = document.querySelector('.work-piece').content;
 const popupInputAll = document.querySelector('.popup__input');
 const popup = document.querySelector('.popup__form');
+const buttonSubmitImageAdd = document.querySelector('.popup__button_user_image');
 
 //**Общие функции попап----------------------------------------------------------------------
 // свернуть все попапы по ESС
@@ -79,6 +80,8 @@ popupFormUserInput.addEventListener('submit', (event) => {
 // Открыть
 addImageButton.addEventListener('click', () => {
     openPopup(popupImage);
+    buttonSubmitImageAdd.classList.add('popup__button_inactive');
+    buttonSubmitImageAdd.disabled = true;
 });
 // Свернуть
 popupCloseButtonImageContant.addEventListener('click', () => {
@@ -131,7 +134,6 @@ const userLinkImg = document.querySelector('.popup__input_link_image');
 
 popupFormAddImage.addEventListener('submit', (event) => {
     event.preventDefault();
-    const userElement = userImageLoadWorkPiece.querySelector('.element').cloneNode(true);
     addCard(userImageNameField.value, userLinkImg.value);
     popupFormAddImage.reset();
     closePopup(popupImage);
