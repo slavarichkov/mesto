@@ -22,6 +22,7 @@ const userImageLoadWorkPiece = document.querySelector('.work-piece').content;
 const popupInputAll = document.querySelector('.popup__input');
 const popup = document.querySelector('.popup__form');
 const buttonSubmitImageAdd = document.querySelector('.popup__button_user_image');
+const popupButtoninative = document.querySelector('.popup__button_inactive')
 
 //**Общие функции попап----------------------------------------------------------------------
 // свернуть все попапы по ESС
@@ -49,6 +50,11 @@ function closePopup(option) {
     option.classList.remove('popup_open');
     option.removeEventListener('keydown', closeByEscape);
     option.removeEventListener('keydown', closeByOverPopup);
+}
+
+function disableSubmitButton(className, buttonName) {
+    buttonName.classList.add(className);
+    buttonName.disabled = true;
 }
 
 //**Попап редактирования профиля-------------------------------------------------------------------------
@@ -80,9 +86,9 @@ popupFormUserInput.addEventListener('submit', (event) => {
 // Открыть
 addImageButton.addEventListener('click', () => {
     openPopup(popupImage);
-    buttonSubmitImageAdd.classList.add('popup__button_inactive');
-    buttonSubmitImageAdd.disabled = true;
+    disableSubmitButton(popupButtoninative, buttonSubmitImageAdd);
 });
+
 // Свернуть
 popupCloseButtonImageContant.addEventListener('click', () => {
     closePopup(popupImage);
@@ -111,7 +117,6 @@ function addImageUser(valueName, valueLink) {
     const handleDelete = () => { buttonDelete.closest('.element').remove() };
     buttonDelete.addEventListener('click', handleDelete);
     //слушатель увеличения изображения
-    // const image = userElement.querySelector('.element__maskgroup');
     cardImage.addEventListener('click', () => {
         openPopup(imageScale);
         imageBig.setAttribute('src', valueLink);
@@ -137,6 +142,7 @@ popupFormAddImage.addEventListener('submit', (event) => {
     addCard(userImageNameField.value, userLinkImg.value);
     popupFormAddImage.reset();
     closePopup(popupImage);
+    disableSubmitButton(popupButtoninative, buttonSubmitImageAdd);
 });
 
 // **Автоматическое создание 6 карточек при запустке страницы---------------------------------------------------------------------
