@@ -137,8 +137,6 @@ popupFormAddImage.addEventListener('submit', (event) => {
     addCard(userImageNameField.value, userLinkImg.value);
     popupFormAddImage.reset();
     closePopup(popupImage);
-    buttonSubmitImageAdd.classList.add('popup__button_inactive');
-    buttonSubmitImageAdd.disabled = true;
 });
 
 // **Автоматическое создание 6 карточек при запустке страницы---------------------------------------------------------------------
