@@ -36,11 +36,11 @@ const hideInputError = (formElement, inputElement, validateConfig) => {
 };
 
 //   проверка на валидность инпута
-const checkInputValidity = (formElement, inputElement, validateConfig) => {
+const checkInputValidity = (formElement, inputElement, ) => {
     if (!inputElement.validity.valid) {
-        showInputError(formElement, inputElement, inputElement.validationMessage, config);
+        showInputError(formElement, inputElement, inputElement.validationMessage, validateConfig);
     } else {
-        hideInputError(formElement, inputElement, config);
+        hideInputError(formElement, inputElement, validateConfig);
     }
 };
 
