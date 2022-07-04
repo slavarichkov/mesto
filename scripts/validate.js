@@ -36,7 +36,7 @@ const hideInputError = (formElement, inputElement, validateConfig) => {
 };
 
 //   проверка на валидность инпута
-const checkInputValidity = (formElement, inputElement, ) => {
+const checkInputValidity = (formElement, inputElement, validateConfig) => {
     if (!inputElement.validity.valid) {
         showInputError(formElement, inputElement, inputElement.validationMessage, validateConfig);
     } else {
