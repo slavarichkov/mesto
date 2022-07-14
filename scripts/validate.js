@@ -1,15 +1,3 @@
-const config = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_inactive',
-    errorClass: 'popup__text-error_show',
-    inputConainer: '.popup__input-conainer',
-    textError: '.popup__text-error',
-    popupSet: '.popup__set',
-    typeErrorOn: 'form__input_type_error',
-}
-
 // показать ошибку, принимает форму, инпут, сообщение об ошибке
 const showInputError = (formElement, inputElement, errorMessage, validateConfig) => {
     // получаем ошибку

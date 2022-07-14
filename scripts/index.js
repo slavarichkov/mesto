@@ -1,3 +1,6 @@
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+
 const editButton = document.querySelector('.profile__edit-button');
 const popupUserInput = document.querySelector('.popup_user_input');
 const closeButtonProfileEdit = document.querySelector('.popup__close-button_profile_edit');
@@ -10,23 +13,46 @@ const addImageButton = document.querySelector('.profile__add-button');
 const popupImage = document.querySelector('.popup_image_content');
 const popupFormAddImage = document.querySelector('.popup__form_image_add');
 const popupCloseButtonImageContant = document.querySelector('.popup__close-button_image_contant');
-const userImageLink = document.querySelector('.popup__input_link_image');
-const userImageName = document.querySelector('.popup__input_name_image');
-const imageScale = document.querySelector('.popup_image_scale');
-const imageBig = document.querySelector('.popup__image-scale');
-const imageBigText = document.querySelector('.popup__image-title');
+export const imageScale = document.querySelector('.popup_image_scale');
+export const imageBig = document.querySelector('.popup__image-scale');
+export const imageBigText = document.querySelector('.popup__image-title');
 const closeButtonBigImage = document.querySelector('.popup__close-button_image_scale');
-const containerOfImages = document.querySelector('.elements')
-const elementLike = document.querySelector('.element__like');
-const userImageLoadWorkPiece = document.querySelector('.work-piece').content;
-const popupInputAll = document.querySelector('.popup__input');
-const popup = document.querySelector('.popup__form');
+export const containerOfImages = document.querySelector('.elements')
 const buttonSubmitImageAdd = document.querySelector('.popup__button_user_image');
 const popupButtoninative = document.querySelector('.popup__button_inactive')
+// const elementLike = document.querySelector('.element__like');
+// const userImageLoadWorkPiece = document.querySelector('.work-piece').content;
+// const popupInputAll = document.querySelector('.popup__input');
+// const popup = document.querySelector('.popup__form');
+// const userImageLink = document.querySelector('.popup__input_link_image');
+// const userImageName = document.querySelector('.popup__input_name_image');
+
+
+const config = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_inactive',
+    errorClass: 'popup__text-error_show',
+    inputConainer: '.popup__input-conainer',
+    textError: '.popup__text-error',
+    popupSet: '.popup__set',
+    typeErrorOn: 'form__input_type_error',
+    templateClass: '.work-piece',
+    imageElement: '.element__maskgroup',
+    titleElement: '.element__title',
+    buttonCardDelete: '.element__button-delete',
+    likeImage: '.element__like',
+    imageLikeactivated: 'element__like_activeted',
+    element: '.element',
+    containerOfelementsImage: '.elements',
+}
+
+
 
 //**Общие функции попап----------------------------------------------------------------------
 // свернуть все попапы по ESС
-function closeByEscape(e) {
+export function closeByEscape(e) {
     if (e.keyCode === 27) {
         const openPopup = document.querySelector('.popup_open')
         closePopup(openPopup);
@@ -34,25 +60,25 @@ function closeByEscape(e) {
 }
 
 // свернуть все попапы по клику на оверлей
-function closeByOverPopup(e) {
+export function closeByOverPopup(e) {
     if (e.target.classList.contains("popup_overlay")) {
         closePopup(e.target);
     }
 }
 
-function openPopup(option) {
+export function openPopup(option) {
     option.classList.add('popup_open');
     document.addEventListener('keydown', closeByEscape);
     option.addEventListener('click', closeByOverPopup);
 };
 
-function closePopup(option) {
+export function closePopup(option) {
     option.classList.remove('popup_open');
     option.removeEventListener('keydown', closeByEscape);
     option.removeEventListener('keydown', closeByOverPopup);
 }
 
-function disableSubmitButton(className, buttonName) {
+export function disableSubmitButton(className, buttonName) {
     buttonName.classList.add(className);
     buttonName.disabled = true;
 }
@@ -100,38 +126,6 @@ closeButtonBigImage.addEventListener('click', () => {
     closePopup(imageScale);
 });
 
-// наполнение карточки**-----------------------------------------------------------------------------
-function addImageUser(valueName, valueLink) {
-    // создание карточки из html, её наполнение
-    const userElement = userImageLoadWorkPiece.querySelector('.element').cloneNode(true);
-    const cardImage = userElement.querySelector('.element__maskgroup');
-    cardImage.src = valueLink;
-    cardImage.alt = valueName;
-    userElement.querySelector('.element__title').textContent = valueName;
-    // cлушатель лайк
-    const like = userElement.querySelector('.element__like');
-    const handleLike = (event) => { event.target.classList.toggle('element__like_activeted') };
-    like.addEventListener('click', handleLike);
-    //слушатель удаления карточки
-    const buttonDelete = userElement.querySelector('.element__button-delete');
-    const handleDelete = () => { buttonDelete.closest('.element').remove() };
-    buttonDelete.addEventListener('click', handleDelete);
-    //слушатель увеличения изображения
-    cardImage.addEventListener('click', () => {
-        openPopup(imageScale);
-        imageBig.setAttribute('src', valueLink);
-        imageBig.setAttribute('alt', valueName);
-        imageBigText.textContent = valueName;
-    })
-    return userElement;
-}
-
-// добавляем карточку в общий список карточек в начало-----------------------------------------------------------
-function addCard(valueName, valueLink) {
-    const returnImageUser = addImageUser(valueName, valueLink)
-    // и добавляем в общий список карточек новую карточку
-    containerOfImages.prepend(returnImageUser);
-};
 
 // слушатель на отправку формы добавления картинки**--------------------------------------------------------------------------------
 const userImageNameField = document.querySelector('.popup__input_name_image');
@@ -139,7 +133,8 @@ const userLinkImg = document.querySelector('.popup__input_link_image');
 
 popupFormAddImage.addEventListener('submit', (event) => {
     event.preventDefault();
-    addCard(userImageNameField.value, userLinkImg.value);
+    // addCard(userImageNameField.value, userLinkImg.value);
+    newCard.addCard(userImageNameField.value, userLinkImg.value);
     popupFormAddImage.reset();
     closePopup(popupImage);
     disableSubmitButton(popupButtoninative, buttonSubmitImageAdd);
@@ -173,9 +168,18 @@ const initialCards = [
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ];
-// пройтись по каждому объекту в массиве и создать карточку
+
+// создать карточку из массива
+const newCard = new Card(config);
 initialCards.forEach(function (item) {
-    addCard(item.name, item.link);
+    newCard.addCard(item.name, item.link);
 });
+
+//валидация формы данных пользователя
+const validationFormUser = new FormValidator(config, popupUserInput);
+validationFormUser.enableValidation();
+//валидация формы добавления карточек
+const validationFormAddCards = new FormValidator(config, popupImage);
+validationFormAddCards.enableValidation();
 
 
