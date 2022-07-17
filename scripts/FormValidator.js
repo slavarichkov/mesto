@@ -8,28 +8,25 @@ class FormValidator {
     // показать ошибку, принимает форму, инпут, сообщение об ошибке
     _showInputError() {
         // подчеркнуть поле ввода красным
-        const input = this.formElement.querySelector(this.config.inputSelector)
-        input.classList.add(this.config.typeErrorOn);
+        this.input = this.formElement.querySelector(this.config.inputSelector)
+        this.input.classList.add(this.config.typeErrorOnClass);
         // найти спан 
-        const inputCont = input.closest(this.config.inputConainer);
-        const errorElement = inputCont.querySelector(this.config.textError);
+        this.inputCont = this.input.closest(this.config.inputConainerSelector);
+        this.errorElement = this.inputCont.querySelector(this.config.textErrorSelector);
         // выдернуть ошибку, чтобы добавить в спан и отобразить
-        errorElement.textContent = input.validationMessage;
+        this.errorElement.textContent = this.input.validationMessage;
         // сделать видимой ошибку
-        errorElement.classList.add(this.config.errorClass);
+        this.errorElement.classList.add(this.config.errorClass);
     }
+
 
     //   спрятать ошибку инпута
     _hideInputError() {
-        // ловим ошибку
-        const input = this.formElement.querySelector(this.config.inputSelector)
-        const inputCont = input.closest(this.config.inputConainer);
-        const errorElement = inputCont.querySelector(this.config.textError);
         // Удаляем классы подчеркивания и видимости текста
-        input.classList.remove(this.config.typeErrorOn);
-        errorElement.classList.add(this.config.errorClass);
+        this.input.classList.remove(this.config.typeErrorOnClass);
+        this.errorElement.classList.add(this.config.errorClass);
         // очищаем
-        errorElement.textContent = '';
+        this.errorElement.textContent = '';
     };
 
     //   проверка на валидность инпута
@@ -44,18 +41,20 @@ class FormValidator {
 
     //   добавление слушателя
     _setEventListeners() {
-        // получаем массив всех инпутов внутри формы 
-        const inputList = Array.from(this.formElement.querySelectorAll(this.config.inputSelector));
-        // находим кнопку внутри формы
-        const buttonElement = this.formElement.querySelector(this.config.submitButtonSelector);
         // проходим по массиву и проверяем при вводе валидность поля и меняем поведение кнопки в зависимости от валидности
-        inputList.forEach((input) => {
+        this.inputList.forEach((input) => {
             input.addEventListener('input', () => {
                 this._checkInputValidity();
                 this._toggleButtonState();
             });
         });
     };
+
+    disableSubmitButton() {
+        this.buttonElement = this.formElement.querySelector(this.config.submitButtonSelector);
+        this.buttonElement.classList.add(this.config.inactiveButtonClass);
+        this.buttonElement.disabled = true;
+    }
 
     //   проверить валидны ли все инпуты внутри формы
     _hasInvalidInput() {
@@ -66,20 +65,20 @@ class FormValidator {
 
     //   состояние кнопки
     _toggleButtonState() {
-        const buttonElement = this.formElement.querySelector(this.config.submitButtonSelector)
+
         if (this._hasInvalidInput()) {
-            buttonElement.classList.add(this.config.inactiveButtonClass);
-            buttonElement.disabled = true;
+            this.buttonElement.classList.add(this.config.inactiveButtonClass);
+            this.buttonElement.disabled = true;
         } else {
-            buttonElement.classList.remove(this.config.inactiveButtonClass);
-            buttonElement.disabled = false;
+            this.buttonElement.classList.remove(this.config.inactiveButtonClass);
+            this.buttonElement.disabled = false;
         }
     }
 
     enableValidation() {
-        const formList = Array.from(document.querySelectorAll(this.config.formSelector));
+        this.formList = Array.from(document.querySelectorAll(this.config.formSelector));
         // проходим по каждой форме
-        formList.forEach(() => {
+        this.formList.forEach(() => {
             this._setEventListeners();
         });
     }

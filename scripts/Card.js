@@ -1,48 +1,50 @@
 import { containerOfImages } from "./index.js";
-import { openPopup } from "./index.js";
-import { imageScale } from "./index.js";
-import { imageBig } from "./index.js";
-import { imageBigText } from "./index.js";
+// import { openPopup } from "./index.js";
+// import { imageScale } from "./index.js";
+// import { imageBig } from "./index.js";
+// import { imageBigText } from "./index.js";
 
 class Card {
-    constructor(config) {
+    constructor(config, controlScaleImage) {
         this.config = config;
+        this.controlScaleImage = controlScaleImage;
+    }
+
+    // управление лайком
+    _handleLike = () => { this.like.classList.toggle(this.config.imageLikeactivatedClass)}
+    // управление удалением карточки
+    _handleDelete = () => {
+        this.userElement.remove();
+        this.userElement = null;
     }
 
     //наполнить темплейт - ссылка на картинку и ее название + прикрепить слушатели
     _fillTemplate(valueName, valueLink) {
-        const userElement = document.querySelector(this.config.templateClass)
-            .content
-            .cloneNode(true);
-        const cardImage = userElement.querySelector(this.config.imageElement);
-        cardImage.src = valueLink;
-        cardImage.alt = valueName;
-        userElement.querySelector(this.config.titleElement).textContent = valueName;
-        // управление лайком
-        const _like = userElement.querySelector(this.config.likeImage);
-        const _handleLike = (event) => { event.target.classList.toggle(this.config.imageLikeactivated) };
-        _like.addEventListener('click', _handleLike);
-        //слушатель удаления карточки
-        const _buttonDelete = userElement.querySelector(this.config.buttonCardDelete);
-        const _handleDelete = () => { _buttonDelete.closest('.element').remove()};
-        _buttonDelete.addEventListener('click', _handleDelete);
+        this.templateElement = document.querySelector(this.config.templateSelector);
+        this.userElement = this.templateElement.content.querySelector(this.config.elementSelector).cloneNode(true);
+        this.cardImage = this.userElement.querySelector(this.config.imageElementSelector);
+        this.cardImage.src = valueLink;
+        this.cardImage.alt = valueName;
+        this.userElement.querySelector(this.config.titleElementSelector).textContent = valueName;
+        // слушатель управление лайком
+        this.like = this.userElement.querySelector(this.config.likeImageSelector);
+        this.like.addEventListener('click', this._handleLike);
+        // слушатель удаления карточки
+        this._buttonDelete = this.userElement.querySelector(this.config.buttonCardDeleteSelector);
+        // console.log(this._buttonDelete)
+        this._buttonDelete.addEventListener('click', this._handleDelete);
         //слушатель увеличения изображения
-        const _scaleDelete = () => {
-            openPopup(imageScale);
-            imageBig.setAttribute('src', valueLink);
-            imageBig.setAttribute('alt', valueName);
-            imageBigText.textContent = valueName;
-        };
-        cardImage.addEventListener('click', _scaleDelete)
+        this.cardImage.addEventListener('click', () => this.controlScaleImage(valueName, valueLink));
 
-        return userElement;
+        return this.userElement;
     }
 
-    // добавить в разметку
-    addCard(valueName, valueLink) {
-        const returnImageUser = this._fillTemplate(valueName, valueLink);
-        containerOfImages.prepend(returnImageUser);
-    }
+
+    // // добавить в разметку
+    // addCard(valueName, valueLink) {
+    //     const returnImageUser = this._fillTemplate(valueName, valueLink);
+    //     containerOfImages.prepend(returnImageUser);
+    // }
 
 
 }
