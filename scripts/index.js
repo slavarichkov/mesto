@@ -22,7 +22,6 @@ const buttonSubmitImageAdd = document.querySelector('.popup__button_user_image')
 const popupButtoninative = document.querySelector('.popup__button_inactive')
 
 
-
 const config = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
