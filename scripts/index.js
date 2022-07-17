@@ -18,8 +18,8 @@ export const imageBig = document.querySelector('.popup__image-scale');
 export const imageBigText = document.querySelector('.popup__image-title');
 const buttonCloseBigImage = document.querySelector('.popup__close-button_image_scale');
 export const containerOfImages = document.querySelector('.elements')
-const buttonSubmitImageAdd = document.querySelector('.popup__button_user_image');
-const popupButtoninative = document.querySelector('.popup__button_inactive')
+// const buttonSubmitImageAdd = document.querySelector('.popup__button_user_image');
+// const popupButtoninative = document.querySelector('.popup__button_inactive')
 
 
 const config = {
