@@ -20,12 +20,7 @@ const buttonCloseBigImage = document.querySelector('.popup__close-button_image_s
 export const containerOfImages = document.querySelector('.elements')
 const buttonSubmitImageAdd = document.querySelector('.popup__button_user_image');
 const popupButtoninative = document.querySelector('.popup__button_inactive')
-// const elementLike = document.querySelector('.element__like');
-// const userImageLoadWorkPiece = document.querySelector('.work-piece').content;
-// const popupInputAll = document.querySelector('.popup__input');
-// const popup = document.querySelector('.popup__form');
-// const userImageLink = document.querySelector('.popup__input_link_image');
-// const userImageName = document.querySelector('.popup__input_name_image');
+
 
 
 const config = {
