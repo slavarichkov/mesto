@@ -3,8 +3,6 @@ class FormValidator {
         this.config = config;
         this.formElement = formElement;
         this.inputList = Array.from(this.formElement.querySelectorAll(this.config.inputSelector));
-        this.input = this.formElement.querySelector(this.config.inputSelector);
-        this.popupForm = this.formElement.querySelector(this.config.formSelector);
         this.buttonElement = this.formElement.querySelector(this.config.submitButtonSelector);
     }
 
