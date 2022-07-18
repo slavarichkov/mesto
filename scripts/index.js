@@ -138,7 +138,6 @@ popupFormAddImage.addEventListener('submit', (event) => {
     createNewCard(userImageNameField.value, userLinkImg.value)
     popupFormAddImage.reset();
     closePopup(popupImage);
-    validationFormAddCards.disableSubmitButton();
 });
 
 
@@ -184,5 +183,5 @@ createNewCardFromArray();
 const validationFormUser = new FormValidator(config, popupFormUserInput);
 validationFormUser.enableValidation();
 //валидация формы добавления карточек
-const validationFormAddCards = new FormValidator(config, popupImage);
+const validationFormAddCards = new FormValidator(config, popupFormUserInput);
 validationFormAddCards.enableValidation();
