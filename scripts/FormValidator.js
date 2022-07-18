@@ -54,6 +54,7 @@ class FormValidator {
         });
     };
 
+    // задисэйблить кнопку
     disableSubmitButton() {
         this.buttonElement.classList.add(this.config.inactiveButtonClass);
         this.buttonElement.disabled = true;
@@ -81,6 +82,5 @@ class FormValidator {
             this._setEventListeners();
     }
 }
-
 
 export default FormValidator
