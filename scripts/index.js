@@ -18,8 +18,7 @@ export const imageBig = document.querySelector('.popup__image-scale');
 export const imageBigText = document.querySelector('.popup__image-title');
 const buttonCloseBigImage = document.querySelector('.popup__close-button_image_scale');
 export const containerOfImages = document.querySelector('.elements')
-// const buttonSubmitImageAdd = document.querySelector('.popup__button_user_image');
-// const popupButtoninative = document.querySelector('.popup__button_inactive')
+
 
 
 const config = {
@@ -107,7 +106,6 @@ popupFormUserInput.addEventListener('submit', (event) => {
 // Открыть
 imageAddButton.addEventListener('click', () => {
     popupOpen(popupImage);
-    validationFormUser.disableSubmitButton();
     validationFormAddCards.disableSubmitButton();
 });
 
@@ -140,7 +138,6 @@ popupFormAddImage.addEventListener('submit', (event) => {
     createNewCard(userImageNameField.value, userLinkImg.value)
     popupFormAddImage.reset();
     closePopup(popupImage);
-    validationFormUser.disableSubmitButton();
     validationFormAddCards.disableSubmitButton();
 });
 
@@ -184,7 +181,7 @@ function createNewCardFromArray() {
 createNewCardFromArray();
 
 //валидация формы данных пользователя
-const validationFormUser = new FormValidator(config, popupUserInput);
+const validationFormUser = new FormValidator(config, popupFormUserInput);
 validationFormUser.enableValidation();
 //валидация формы добавления карточек
 const validationFormAddCards = new FormValidator(config, popupImage);

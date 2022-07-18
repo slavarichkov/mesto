@@ -1,8 +1,3 @@
-import { containerOfImages } from "./index.js";
-// import { openPopup } from "./index.js";
-// import { imageScale } from "./index.js";
-// import { imageBig } from "./index.js";
-// import { imageBigText } from "./index.js";
 
 class Card {
     constructor(config, controlScaleImage) {
@@ -38,14 +33,6 @@ class Card {
 
         return this.userElement;
     }
-
-
-    // // добавить в разметку
-    // addCard(valueName, valueLink) {
-    //     const returnImageUser = this._fillTemplate(valueName, valueLink);
-    //     containerOfImages.prepend(returnImageUser);
-    // }
-
 
 }
 

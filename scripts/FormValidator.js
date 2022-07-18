@@ -3,39 +3,43 @@ class FormValidator {
         this.config = config;
         this.formElement = formElement;
         this.inputList = Array.from(this.formElement.querySelectorAll(this.config.inputSelector));
+        this.input = this.formElement.querySelector(this.config.inputSelector);
+        this.popupForm = this.formElement.querySelector(this.config.formSelector);
+        this.buttonElement = this.formElement.querySelector(this.config.submitButtonSelector);
     }
 
     // показать ошибку, принимает форму, инпут, сообщение об ошибке
-    _showInputError() {
-        // подчеркнуть поле ввода красным
-        this.input = this.formElement.querySelector(this.config.inputSelector)
-        this.input.classList.add(this.config.typeErrorOnClass);
+    _showInputError(input) {
         // найти спан 
-        this.inputCont = this.input.closest(this.config.inputConainerSelector);
-        this.errorElement = this.inputCont.querySelector(this.config.textErrorSelector);
+        const inputCont = input.closest(this.config.inputConainerSelector);
+        const errorElement = inputCont.querySelector(this.config.textErrorSelector);
+        // подчеркнуть поле ввода красным
+        input.classList.add(this.config.typeErrorOnClass);
         // выдернуть ошибку, чтобы добавить в спан и отобразить
-        this.errorElement.textContent = this.input.validationMessage;
+        errorElement.textContent = input.validationMessage;
         // сделать видимой ошибку
-        this.errorElement.classList.add(this.config.errorClass);
+        errorElement.classList.add(this.config.errorClass);
     }
 
 
     //   спрятать ошибку инпута
-    _hideInputError() {
+    _hideInputError(input) {
+        // найти спан 
+        const inputCont = input.closest(this.config.inputConainerSelector);
+        const errorElement = inputCont.querySelector(this.config.textErrorSelector);
         // Удаляем классы подчеркивания и видимости текста
-        this.input.classList.remove(this.config.typeErrorOnClass);
-        this.errorElement.classList.add(this.config.errorClass);
+        input.classList.remove(this.config.typeErrorOnClass);
+        errorElement.classList.add(this.config.errorClass);
         // очищаем
-        this.errorElement.textContent = '';
+        errorElement.textContent = '';
     };
 
     //   проверка на валидность инпута
-    _checkInputValidity() {
-        const input = this.formElement.querySelector(this.config.inputSelector)
+    _checkInputValidity(input) {
         if (!input.validity.valid) {
-            this._showInputError();
+            this._showInputError(input);
         } else {
-            this._hideInputError();
+            this._hideInputError(input);
         }
     };
 
@@ -44,14 +48,13 @@ class FormValidator {
         // проходим по массиву и проверяем при вводе валидность поля и меняем поведение кнопки в зависимости от валидности
         this.inputList.forEach((input) => {
             input.addEventListener('input', () => {
-                this._checkInputValidity();
+                this._checkInputValidity(input);
                 this._toggleButtonState();
             });
         });
     };
 
     disableSubmitButton() {
-        this.buttonElement = this.formElement.querySelector(this.config.submitButtonSelector);
         this.buttonElement.classList.add(this.config.inactiveButtonClass);
         this.buttonElement.disabled = true;
     }
@@ -67,8 +70,7 @@ class FormValidator {
     _toggleButtonState() {
 
         if (this._hasInvalidInput()) {
-            this.buttonElement.classList.add(this.config.inactiveButtonClass);
-            this.buttonElement.disabled = true;
+            this.disableSubmitButton();
         } else {
             this.buttonElement.classList.remove(this.config.inactiveButtonClass);
             this.buttonElement.disabled = false;
@@ -76,12 +78,9 @@ class FormValidator {
     }
 
     enableValidation() {
-        this.formList = Array.from(document.querySelectorAll(this.config.formSelector));
-        // проходим по каждой форме
-        this.formList.forEach(() => {
             this._setEventListeners();
-        });
     }
 }
+
 
 export default FormValidator
