@@ -1,8 +1,8 @@
 import Popup from "./Popup.js";
 
 export default class PopupWhithImage extends Popup {
-    constructor(selectorPopup) {
-        super(selectorPopup)
+    constructor(popup) {
+        super(popup)
     }
 
     open(name, link) {

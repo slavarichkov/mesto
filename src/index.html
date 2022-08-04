@@ -4,17 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
+    <!-- <link rel="stylesheet" href="./pages/index.css"> -->
     <title>Mesto</title>
 </head>
 
 <body class="page">
     <header class="header">
-        <img class="header__logo" src="./images/LogoMesto.svg" alt="Логотип">
+        <img class="header__logo" src="<%=require('./images/LogoMesto.svg')%>" alt="Логотип">
     </header>
     <main>
         <section class="profile">
-            <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар">
+            <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
             <div class="profile__profile-info">
                 <div class="profile__content">
                     <h1 class="profile__firstname">Жак-Ив Кусто </h1>
@@ -94,7 +94,7 @@
         </div>
     </div>
 
-    <script src="./pages/index.js" type="module"></script>
+    <!-- <script src="./pages/index.js" type="module"></script> -->
 </body>
 
 </html>

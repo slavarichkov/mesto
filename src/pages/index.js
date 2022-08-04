@@ -4,46 +4,10 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWhithImage from "../components/PopupWhithImage.js";
 import UserInfo from "../components/UserInfo.js";
-
-const buttonEdit = document.querySelector('.profile__edit-button');
-//const popupUserInput = document.querySelector('.popup_user_input');
-//const buttonCloseProfileEdit = document.querySelector('.popup__close-button_profile_edit');
-const profileFirstName = document.querySelector('.profile__firstname');
-//const firstNameInput = document.querySelector('.popup__input_field_firstname');
-//const professionInput = document.querySelector('.popup__input_field_profession');
-const profileSubText = document.querySelector('.profile__subtext');
-const popupFormUserInput = document.querySelector('.popup__form_user_input');
-const imageAddButton = document.querySelector('.profile__add-button');
-//const popupImage = document.querySelector('.popup_image_content');
-const popupFormAddImage = document.querySelector('.popup__form_image_add');
-//const popupCloseButtonImageContant = document.querySelector('.popup__close-button_image_contant');
-export const imageScale = document.querySelector('.popup_image_scale');
-export const imageBig = document.querySelector('.popup__image-scale');
-export const imageBigText = document.querySelector('.popup__image-title');
-//const buttonCloseBigImage = document.querySelector('.popup__close-button_image_scale');
-export const containerOfImages = document.querySelector('.elements');
-
-
-
-
-const config = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_inactive',
-    errorClass: 'popup__text-error_show',
-    inputConainerSelector: '.popup__input-conainer',
-    textErrorSelector: '.popup__text-error',
-    popupSetSelector: '.popup__set',
-    typeErrorOnClass: 'form__input_type_error',
-    templateSelector: '.work-piece',
-    imageElementSelector: '.element__maskgroup',
-    titleElementSelector: '.element__title',
-    buttonCardDeleteSelector: '.element__button-delete',
-    likeImageSelector: '.element__like',
-    imageLikeactivatedClass: 'element__like_activeted',
-    elementSelector: '.element',
-}
+//импорт css для webpack
+import './index.css';
+//импорт переменных
+import { buttonEdit, firstNameInput, professionInput, popupFormUserInput, imageAddButton, popupFormAddImage, containerOfImages, config } from "../utils/constants.js";
 
 // создать карточку ----------------------------------------------------------------------------
 
@@ -54,21 +18,27 @@ function createNewCard(name, link) {
 }
 
 //**Попап редактирования профиля-------------------------------------------------------------------------
-const userInfoRedact = new UserInfo('.popup__input_field_firstname', '.popup__input_field_profession');
-const popupControlUserInput = new PopupWithForm('.popup_user_input', () => userInfoRedact.setUserInfo(profileFirstName, profileSubText));
+const userInfoRedact = new UserInfo('.profile__firstname', '.profile__subtext');
+//const popupControlUserInput = new PopupWithForm('.popup_user_input', () => userInfoRedact.setUserInfo(profileFirstName, profileSubText));
+const popupControlUserInput = new PopupWithForm('.popup_user_input', (data) => userInfoRedact.setUserInfo(data.firstname, data.profession));
+popupControlUserInput.setEventListeners();
 
 // Открыть (свернуть вшито в метод класса)
 buttonEdit.addEventListener('click', () => {
     popupControlUserInput.open();
-    userInfoRedact.getUserInfo(profileFirstName.textContent, profileSubText.textContent);
-    popupControlUserInput.setEventListeners();
+    const dataUserInfo = userInfoRedact.getUserInfo();
+    firstNameInput.value = dataUserInfo.userName;
+    professionInput.value = dataUserInfo.userProffesion;
+
+
 });
 
 // управление увеличением изображения
+const popupImageScaleControl = new PopupWhithImage('.popup_image_scale');
+popupImageScaleControl.setEventListeners();
+
 function controlScaleImage(name, link) {
-    const popupImageScaleControl = new PopupWhithImage('.popup_image_scale');
     popupImageScaleControl.open(name, link);
-    popupImageScaleControl.setEventListeners();
 }
 
 // **Автоматическое создание 6 карточек при запустке страницы---------------------------------------------------------------------
@@ -114,11 +84,11 @@ renderElements.createElements();
 
 // **Попап добавления картинок пользователем**----------------------------------------------------------------------
 const popupUserImageAdd = new PopupWithForm('.popup_image_content', (data) => renderElements.addItem(createNewCard(data.image_title, data.link)));
+popupUserImageAdd.setEventListeners();
 
 // Открыть (свернуть и слушатель на сабмит внутри метода класса)
 imageAddButton.addEventListener('click', () => {
     popupUserImageAdd.open();
-    popupUserImageAdd.setEventListeners();
     validationFormAddCards.disableSubmitButton();
 });
 

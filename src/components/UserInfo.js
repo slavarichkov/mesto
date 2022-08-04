@@ -1,18 +1,21 @@
 export default class UserInfo {
-    constructor(selectorName, selectorProffesion) {
-        this._userName = document.querySelector(selectorName);
-        this._userProffesion = document.querySelector(selectorProffesion);
+    constructor(name, proffesion) {
+        this._userName = document.querySelector(name);
+        this._userProffesion = document.querySelector(proffesion);
     }
 
-    //возвращает объект с данными пользователя
-    getUserInfo(name, proffesion) {
-        this._userName.value = name;
-        this._userProffesion.value = proffesion;
+    //возвращает объект с данными пользователя со страницы для добавления в попап при открытии
+    getUserInfo() {
+        return {
+            userName: this._userName.textContent,
+            userProffesion: this._userProffesion.textContent
+        }
     }
 
     //принимает новые данные пользователя и добавляет их на страницу
     setUserInfo(name, proffesion) {
-        proffesion.textContent = this._userProffesion.value;
-        name.textContent = this._userName.value;
+        this._userName.textContent = name;
+        this._userProffesion.textContent = proffesion;
     }
+
 }

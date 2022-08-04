@@ -1,11 +1,11 @@
 //добавляет елемент в разметку
 
 export default class Section {
-    constructor({ data, renderer }, containerSelector) {
+    constructor({ data, renderer }, container) {
         this.data = data;
         this.renderer = renderer; // функция
 
-        this.containerSelector = containerSelector;
+        this.container = container;
     }
 
 
@@ -16,6 +16,6 @@ export default class Section {
     }
 
     addItem(element) {
-        this.containerSelector.prepend(element);
+        this.container.prepend(element);
     }
 }

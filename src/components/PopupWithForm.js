@@ -24,7 +24,7 @@ export default class PopupWithForm extends Popup {
             const valueInput = this._getInputValues();
             console.log(valueInput)
             this.handleSendForm(valueInput);
-            this.close();
+            //this.close();
         }
         this._form.addEventListener('submit', this.handlesForm);
 
