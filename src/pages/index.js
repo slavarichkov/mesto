@@ -19,12 +19,11 @@ function createNewCard(name, link) {
 
 //**Попап редактирования профиля-------------------------------------------------------------------------
 const userInfoRedact = new UserInfo('.profile__firstname', '.profile__subtext');
-//const popupControlUserInput = new PopupWithForm('.popup_user_input', () => userInfoRedact.setUserInfo(profileFirstName, profileSubText));
 const popupControlUserInput = new PopupWithForm('.popup_user_input', (data) => userInfoRedact.setUserInfo(data.firstname, data.profession));
 popupControlUserInput.setEventListeners();
 
 // Открыть (свернуть вшито в метод класса)
-buttonEdit.addEventListener('click', () => {
+buttonEdit.addEventListener('click', (e) => {
     popupControlUserInput.open();
     const dataUserInfo = userInfoRedact.getUserInfo();
     firstNameInput.value = dataUserInfo.userName;

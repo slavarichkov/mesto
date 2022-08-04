@@ -17,17 +17,16 @@ export default class PopupWithForm extends Popup {
         return values
     }
 
+    _handlesForm = (e) => {
+        e.preventDefault();
+        const valueInput = this._getInputValues();
+        this.handleSendForm(valueInput);
+        this.close();
+    }
+
     // слушатель на сабмит формы
     setEventListeners() {
-        this.handlesForm = (e) => {
-            e.preventDefault();
-            const valueInput = this._getInputValues();
-            console.log(valueInput)
-            this.handleSendForm(valueInput);
-            this.close();
-        }
-        this._form.addEventListener('submit', this.handlesForm);
-
+        this._form.addEventListener('submit', this._handlesForm);
         super.setEventListeners();
     }
 
@@ -35,6 +34,5 @@ export default class PopupWithForm extends Popup {
     close() {
         this._form.reset();
         super.close();
-        this._form.removeEventListener('submit', this.handlesForm);
     }
 }
