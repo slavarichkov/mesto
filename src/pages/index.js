@@ -7,13 +7,13 @@ import UserInfo from "../components/UserInfo.js";
 //импорт css для webpack
 import './index.css';
 //импорт переменных
-import { buttonEdit, firstNameInput, professionInput, popupFormUserInput, imageAddButton, popupFormAddImage, containerOfImages, config } from "../utils/constants.js";
+import { buttonEdit, firstNameInput, professionInput, popupFormUserInput, imageAddButton, popupFormAddImage, containerOfImages, config, initialCards } from "../utils/constants.js";
 
 // создать карточку ----------------------------------------------------------------------------
 
 function createNewCard(name, link) {
-    const newCard = new Card(config, controlScaleImage);
-    const returnImageUser = newCard.fillTemplate(name, link);
+    const newCard = new Card(config, controlScaleImage, name, link);
+    const returnImageUser = newCard.generateCard();
     return returnImageUser;
 }
 
@@ -41,33 +41,6 @@ function controlScaleImage(name, link) {
 }
 
 // **Автоматическое создание 6 карточек при запустке страницы---------------------------------------------------------------------
-// массив карточек
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
 
 //добавить карточку из массива в разметку
 const renderElements = new Section({
@@ -88,12 +61,22 @@ popupUserImageAdd.setEventListeners();
 // Открыть (свернуть и слушатель на сабмит внутри метода класса)
 imageAddButton.addEventListener('click', () => {
     popupUserImageAdd.open();
-    validationFormAddCards.disableSubmitButton();
+    formValidators['form'].disableSubmitButton();
 });
 
-//валидация формы данных пользователя
-const validationFormUser = new FormValidator(config, popupFormUserInput);
-validationFormUser.enableValidation();
-//валидация формы добавления карточек
-const validationFormAddCards = new FormValidator(config, popupFormAddImage);
-validationFormAddCards.enableValidation();
+const formValidators = {}
+
+// Включение валидации
+const enableValidation = (config) => {
+    const formList = Array.from(document.querySelectorAll(config.formSelector));
+    formList.forEach((formElement) => {
+        const validator = new FormValidator(config, formElement);
+        // получаем данные из атрибута `name` у формы
+        const formName = formElement.getAttribute('name')
+        // вот тут в объект записываем под именем формы
+        formValidators[formName] = validator;
+        validator.enableValidation();
+    });
+};
+
+enableValidation(config);
