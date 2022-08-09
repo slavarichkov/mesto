@@ -61,7 +61,7 @@ popupUserImageAdd.setEventListeners();
 // Открыть (свернуть и слушатель на сабмит внутри метода класса)
 imageAddButton.addEventListener('click', () => {
     popupUserImageAdd.open();
-    formValidators['form'].disableSubmitButton();
+    formValidators['formUserImageAdd'].disableSubmitButton();
 });
 
 const formValidators = {}
