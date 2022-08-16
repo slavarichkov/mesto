@@ -3,3 +3,7 @@
     max-height: 120px;
     max-width: 168px;
 }
+
+.profile__avatar:hover {
+    opacity: 0.5;
+}

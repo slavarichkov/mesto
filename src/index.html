@@ -14,24 +14,30 @@
     </header>
     <main>
         <section class="profile">
-            <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
+            <div class=profile__container>
+                <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
+                <button class="profile__avatar-edit-button" type="button"></button>
+            </div>
             <div class="profile__profile-info">
                 <div class="profile__content">
-                    <h1 class="profile__firstname">Жак-Ив Кусто </h1>
+                    <h1 class="profile__firstname"></h1>
                     <button class="profile__edit-button" type="button"></button>
                 </div>
-                <p class="profile__subtext">Исследователь океана</p>
+                <p class="profile__subtext"></p>
             </div>
             <button class="profile__add-button" type="button"></button>
         </section>
         <section class="elements">
-            <!-- заготовка для изображения пользователя -->
+            <!-- заготовка для изображения пользователя (карточки) -->
             <template class="work-piece">
-                <div class="element">
+                <div class="element" id=".">
                     <img class="element__maskgroup" src="1" alt="1">
                     <div class="element__group">
                         <h2 class="element__title"></h2>
-                        <button class="element__like" type="button"></button>
+                        <div>
+                            <button class="element__like" type="button"></button>
+                            <h2 class="element__like-sum">1</h2>
+                        </div>
                         <button class="element__button-delete"></button>
                     </div>
                 </div>
@@ -93,7 +99,35 @@
             <p class="popup__image-title">Карачаево-Черкесия</p>
         </div>
     </div>
-
+    <!-- попап подтверждения удаления карточки -->
+    <div class="popup popup__card-remove popup_overlay">
+        <div class="popup__content">
+            <button class="popup__close-button popup__close-button_image_contant" type="button"></button>
+            <form class="popup__form popup__form_image_add" name="formUserAvatarAdd" novalidate>
+                <h2 class="popup__title popup__card-remove">Вы уверены?</h2>
+                <div class="popup__set">
+                    <button class="popup__button popup__button-card-remove" type="submit">Да</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- форма редактирования аватара -->
+    <div class="popup popup__avatar-redact popup_overlay">
+        <div class="popup__content">
+            <button class="popup__close-button popup__close-button_image_contant" type="button"></button>
+            <form class="popup__form popup__form_image_add" name="formUserAvatarAdd" novalidate>
+                <h2 class="popup__title">Обновить аватар</h2>
+                <div class="popup__set">
+                    <div class="popup__input-conainer">
+                        <input type="url" placeholder="Ссылка" class="popup__input popup__input_name_image" name="link"
+                            id="ava-link" required>
+                        <span class="popup__text-error" id="error-image"></span>
+                    </div>
+                    <button class="popup__button popup__button_user_image" type="submit">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
     <!-- <script src="./pages/index.js" type="module"></script> -->
 </body>
 

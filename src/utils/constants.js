@@ -5,6 +5,7 @@ export const popupFormUserInput = document.querySelector('.popup__form_user_inpu
 export const imageAddButton = document.querySelector('.profile__add-button');
 export const popupFormAddImage = document.querySelector('.popup__form_image_add');
 export const containerOfImages = document.querySelector('.elements');
+export const buttonRedactAvatar = document.querySelector('.profile__avatar-edit-button');
 
 export const config = {
     formSelector: '.popup__form',
@@ -23,31 +24,6 @@ export const config = {
     likeImageSelector: '.element__like',
     imageLikeactivatedClass: 'element__like_activeted',
     elementSelector: '.element',
+    likeQuantitySelector: '.element__like-sum',
+    likeQuantityActiveClass: 'element__like-sum_active'
 }
-
-export const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
