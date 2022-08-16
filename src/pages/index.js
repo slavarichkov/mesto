@@ -13,7 +13,7 @@ const api = new Api('https://mesto.nomoreparties.co/v1/cohort-47/', 'aa25b93c-b1
 
 //удалить карточку
 function deleteCard(idCard) {
-    const deleteCardPopup = new PopupWithForm('.popup__card-remove', () => api.deleteCard(idCard));
+    const deleteCardPopup = new PopupWithForm('.popup_card_remove', () => api.deleteCard(idCard));
     deleteCardPopup.setEventListeners();
     deleteCardPopup.open()
 }
@@ -44,7 +44,7 @@ function changeNameButtonSubmit(selectorPopup) {
 }
 
 //Попап редактирования аватара (изображения юзера)
-const popupUserSendAvatar = new PopupWithForm('.popup__avatar-redact', (data) => { api.sendAvatar(data); changeNameButtonSubmit('.popup__avatar-redact') });
+const popupUserSendAvatar = new PopupWithForm('.popup_avatar_redact', (data) => { api.sendAvatar(data); changeNameButtonSubmit('.popup__avatar-redact') });
 popupUserSendAvatar.setEventListeners();
 buttonRedactAvatar.addEventListener('click', () => {
     popupUserSendAvatar.open();
