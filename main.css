@@ -4,7 +4,7 @@
 .header{border-bottom:1px solid rgba(84,84,84,.7);margin:0 auto;max-width:880px}
 .header__logo{padding:45px 0 40px}@media screen and (max-width:901px){.header__logo{max-height:24.4px;max-width:103.74px;padding:28px 0 31.6px 27px}}
 .profile{align-items:center;display:flex;margin:0 auto;max-width:880px;padding:36.25px 0 47.25px}@media screen and (max-width:901px){.profile{flex-direction:column;padding:38.25px 0 36px}}
-.profile__avatar{border-radius:50%;max-height:120px;max-width:168px}
+.profile__avatar{border-radius:50%;max-height:120px;max-width:168px}.profile__avatar:hover{opacity:.5}
 .profile__content{align-items:center;display:flex;margin:0 0 0 28.125px}@media screen and (max-width:900px){.profile__content{margin:22.25px auto 0;position:relative}}
 .profile__firstname{color:#fff;font-family:Inter,Arial,sans-serif;font-size:42px;font-weight:500;line-height:48px;margin:0;max-width:358px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}@media screen and (max-width:599px){.profile__firstname{font-size:27px;font-weight:500;line-height:33px;margin:20 auto 0;max-width:189px;text-align:center}}
 .profile__subtext{color:#fff;font-family:Inter,Arial,sans-serif;font-size:18px;font-weight:400;line-height:22px;margin:0 0 0 28.125px;max-width:358px;overflow:hidden;padding-top:16px;text-overflow:ellipsis;white-space:nowrap}@media screen and (max-width:900px){.profile__subtext{margin:0 auto;text-align:center}}@media screen and (max-width:599px){.profile__subtext{font-size:14px;font-weight:400;line-height:17px;max-width:190px;padding-top:14px}}
@@ -28,7 +28,7 @@
 .popup_open{opacity:1;transition:visibility .5s,opacity .5s;visibility:visible}
 .profile__plus{max-width:22px}@media screen and (max-width:901px){.profile__plus{max-width:16px}}
 .element__button{background-color:transparent;background-image:url(1ad06e85f169668a1f36.svg);background-repeat:no-repeat;background-size:contain;border:none;cursor:pointer;height:19px;outline:none;overflow:hidden;width:22px}.element__button:active{background-image:url(35948469632d0421d697.svg)}
-.element__button-delete{background-color:transparent;background-image:url(cbc09a894bdd4c956365.svg);background-position:50%;background-repeat:no-repeat;border:0;height:19px;position:absolute;right:20px;top:20px;width:18px}.element__button-delete:hover{cursor:pointer;opacity:.6}
+.element__button-delete{background-color:transparent;background-image:url(e3c42771bff3aaa52f76.svg);background-position:50%;background-repeat:no-repeat;border:0;height:19px;position:absolute;right:20px;top:20px;width:18px}.element__button-delete:hover{cursor:pointer;opacity:.6}
 .element__like_activeted{background-image:url(35948469632d0421d697.svg)}
 .popup__close-button_image_scale{background-color:transparent;background-image:url(622e8cdafa2222aa7c54.svg);background-position:50%;background-repeat:no-repeat;background-size:contain;border:0;height:32px;margin-left:auto;padding-bottom:10px;position:absolute;right:-39px;top:-39px;width:32px}.popup__close-button_image_scale:hover{cursor:pointer;opacity:.6}@media screen and (max-width:900px){.popup__close-button_image_scale{height:20px;margin-bottom:16px;position:unset;width:20px}}
 .popup__image-content{position:relative}
@@ -42,4 +42,9 @@
 .popup__set{display:flex;flex-direction:column}
 .popup__button_inactive{background-color:rgba(0,0,0,.15);pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}
 .popup__input_link_image{padding-top:0}
+.profile__avatar-edit-button{background-color:transparent;background-image:url(6c7bf05444b9793fdf6e.svg);background-position:50%;background-repeat:no-repeat;background-size:32px 32px;border:none;height:100%;left:0;margin:0;opacity:0;padding:0;position:absolute;top:0;width:100%}.profile__avatar-edit-button:hover{background-color:rgba(0,0,0,.5);cursor:pointer;opacity:1}
+.profile__container{max-height:120px;max-width:168px;position:relative}
+.element__like-sum{color:#070707;font-family:Inter,Arial,sans-serif;font-size:18px;font-weight:400;line-height:22px;margin:0;opacity:0;overflow:hidden;text-align:center;text-overflow:ellipsis;white-space:nowrap}
+.element__like-sum_active{opacity:1}
+.popup_card_remove{padding-bottom:34px}
 
