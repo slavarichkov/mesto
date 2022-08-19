@@ -112,9 +112,7 @@ class Api {
 
     //удалить карточку
     deleteCard(data) {
-        // console.log(this.host);
-        // console.log(this.token);
-        // console.log(this);
+        console.log(data);
         return fetch(`${this.host}cards/${data}`, {
             method: 'DELETE',
             headers: {

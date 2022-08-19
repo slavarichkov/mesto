@@ -21,7 +21,6 @@ export default class PopupWithForm extends Popup {
         e.preventDefault();
         const valueInput = this._getInputValues();
         this.handleSendForm(valueInput);
-        this.close();
     }
 
     // слушатель на сабмит формы

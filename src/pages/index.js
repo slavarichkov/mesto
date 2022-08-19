@@ -11,13 +11,6 @@ import { buttonEdit, firstNameInput, professionInput, popupFormUserInput, imageA
 //класс Апи - передать токен и хост
 const api = new Api('https://mesto.nomoreparties.co/v1/cohort-47/', 'aa25b93c-b1f5-4136-8d21-3d760fe1b048');
 
-//удалить карточку
-function deleteCard(idCard) {
-    const deleteCardPopup = new PopupWithForm('.popup_card_remove', () => api.deleteCard(idCard));
-    deleteCardPopup.setEventListeners();
-    deleteCardPopup.open()
-}
-
 //отправить лайк
 function likeCard(idCard) {
     api.addLike(idCard)
@@ -28,45 +21,7 @@ function deleteLike(idCard) {
     api.deleteLike(idCard)
 }
 
-// создать карточку ----------------------------------------------------------------------------
-function createNewCard(name, link, identificator) {
-    const newCard = new Card(config, controlScaleImage, name, link, deleteCard, likeCard, deleteLike, '9bd3c86322412c56203f6689');
-    const returnImageUser = newCard.generateCard();
-    newCard.addIdCard(identificator); // присвоить айди для дальнейшего удаления по автору
-    newCard.showLike(); // отрисовать лайки
-    newCard.showQuantityLikes()//показать количество лайков
-    return returnImageUser;
-}
-
-//заменить название кнопки сабмита
-function changeNameButtonSubmit(selectorPopup) {
-    document.querySelector(selectorPopup).querySelector('.popup__button').textContent = 'Сохранение...'
-}
-
-//Попап редактирования аватара (изображения юзера)
-const popupUserSendAvatar = new PopupWithForm('.popup_avatar_redact', (data) => { api.sendAvatar(data); changeNameButtonSubmit('.popup__avatar-redact') });
-popupUserSendAvatar.setEventListeners();
-buttonRedactAvatar.addEventListener('click', () => {
-    popupUserSendAvatar.open();
-    formValidators['formUserAvatarAdd'].disableSubmitButton();
-})
-
-//**Попап редактирования профиля-------------------------------------------------------------------------
-const userInfoRedact = new UserInfo('.profile__firstname', '.profile__subtext', '.profile__avatar');
-const popupControlUserInput = new PopupWithForm('.popup_user_input', (data) => { api.sendUserInfo(data); changeNameButtonSubmit('.popup_user_input') });
-popupControlUserInput.setEventListeners();
-
-// Открыть (свернуть вшито в метод класса)
-buttonEdit.addEventListener('click', (e) => {
-    popupControlUserInput.open();
-    api.getUserInfo().then((data) => {
-        firstNameInput.value = data.name;
-        professionInput.value = data.about;
-        userInfoRedact.setUserInfo(data.name, data.about);
-    });
-});
-
-//отображение данных пользователя с сервера на странице
+//отображение данных пользователя с сервера на странице при загрузке
 api.getUserInfo().then((data) => {
     userInfoRedact.setUserInfo(data.name, data.about, data.avatar);
 });
@@ -79,25 +34,115 @@ function controlScaleImage(name, link) {
     popupImageScaleControl.open(name, link);
 }
 
-// **Автоматическое создание карточек c сервера при запустке страницы---------------------------------------------------------------------
+//заменить название кнопки сабмита
+function changeNameButtonSubmit(selectorPopup) {
+    document.querySelector(selectorPopup).querySelector('.popup__button').textContent = 'Сохранение...'
+}
+
+//вернуть название кнопки сабмита
+function returnNameButtonSubmit(selectorPopup) {
+    document.querySelector(selectorPopup).querySelector('.popup__button').textContent = 'Сохранение...'
+}
+
+
+//Попап редактирования аватара (изображения юзера) --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+const popupUserSendAvatar = new PopupWithForm('.popup_avatar_redact', (data) => {
+    changeNameButtonSubmit('.popup_avatar_redact');
+    api.sendAvatar(data).then((data) => {
+        userInfoRedact.setAvatar(data.avatar);
+    }).catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+    }).finally(() => { returnNameButtonSubmit('.popup_avatar_redact'); popupUserSendAvatar.close() })
+});
+popupUserSendAvatar.setEventListeners();
+buttonRedactAvatar.addEventListener('click', () => {
+    popupUserSendAvatar.open();
+    formValidators['formUserAvatarAdd'].disableSubmitButton();
+})
+
+//**Попап редактирования профиля-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+const userInfoRedact = new UserInfo('.profile__firstname', '.profile__subtext', '.profile__avatar');
+const popupControlUserInput = new PopupWithForm('.popup_user_input', (data) => {
+    changeNameButtonSubmit('.popup_user_input');
+    api.sendUserInfo(data)
+        .then((data) =>
+            userInfoRedact.setUserInfo(data.name, data.about, data.avatar))
+        .catch((err) => {
+            console.log(err); // выведем ошибку в консоль
+        }).finally(() => { returnNameButtonSubmit('.popup_user_input'); popupControlUserInput.close() })
+});
+popupControlUserInput.setEventListeners();
+
+// Открыть (свернуть вшито в метод класса)
+buttonEdit.addEventListener('click', (e) => {
+    popupControlUserInput.open();
+    api.getUserInfo().then((data) => {
+        firstNameInput.value = data.name;
+        professionInput.value = data.about;
+    });
+});
+
+
+
+// создать карточку --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function createNewCard(name, link, identificator) {
+    const newCard = new Card(config, controlScaleImage, name, link, deleteCard, likeCard, deleteLike, '9bd3c86322412c56203f6689');
+    const returnImageUser = newCard.generateCard(name, link, likeCard);
+    newCard.addIdCard(identificator); // присвоить айди для дальнейшего удаления по автору
+    newCard.showLike(); // отрисовать лайки
+    newCard.showQuantityLikes()//показать количество лайков
+    return returnImageUser;
+}
+
+
+//удалить карточку--------------------------------------------------------------------------------------------------------------------------------------------
+function deleteCard(Card) {
+    const dataCard = Card._allDataCard;
+    const deleteCardPopup = new PopupWithForm('.popup_card_remove', () => api.deleteCard(dataCard._id)
+        .then(() => {
+            Card.handleDelete();
+        }).catch((err) => {
+            console.log(err); // выведем ошибку в консоль
+        }).finally(() => { returnNameButtonSubmit('.popup_avatar_redact'); deleteCardPopup.close() }));
+    deleteCardPopup.setEventListeners()
+    deleteCardPopup.open();
+}
+
+
+//отрисовать карточки (вставить в разметку)--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function renderCards(info) {
+    const renderElements = new Section({
+        data: info,
+        renderer: (item) => {
+            renderElements.addItem(createNewCard(item.name, item.link, item))
+        }
+    },
+        containerOfImages
+    );
+    return renderElements;
+}
+
+
+// **Автоматическое создание карточек c сервера при запустке страницы-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 api.getImages()
     .then((item) => {
-        const renderElements = new Section({
-            data: item,
-            renderer: (item) => {
-                renderElements.addItem(createNewCard(item.name, item.link, item))
-            }
-        },
-            containerOfImages
-        );
-        renderElements.createElements();
+        renderCards(item).createElements();
     })
     .catch((err) => {
         console.log(err); // выведем ошибку в консоль
     });
 
-//добавить новую карточку, обработка инпутов формы(+слушатели) и отправка новой карточки на сервер
-const popupUserImageAdd = new PopupWithForm('.popup_image_content', (data) => { api.sendImages(data); changeNameButtonSubmit('.popup_image_content') });
+
+//добавить новую карточку, обработка инпутов формы(+слушатели) и отправка новой карточки на сервер-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+const popupUserImageAdd = new PopupWithForm('.popup_image_content', (data) => {
+    changeNameButtonSubmit('.popup_image_content');
+    api.sendImages(data).then((data) => {
+        renderCards(data).createElement();
+    })
+        .catch((err) => {
+            console.log(err); // выведем ошибку в консоль
+        }).finally(() => { returnNameButtonSubmit('.popup_user_input'); popupUserImageAdd.close() })
+});
 popupUserImageAdd.setEventListeners();
 
 // Открыть (свернуть и слушатель на сабмит внутри метода класса)
@@ -106,7 +151,7 @@ imageAddButton.addEventListener('click', () => {
     formValidators['formUserImageAdd'].disableSubmitButton();
 });
 
-// Включение валидации
+// Включение валидации-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const formValidators = {}
 
 const enableValidation = (config) => {

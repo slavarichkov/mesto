@@ -19,7 +19,13 @@ export default class UserInfo {
     setUserInfo(name, proffesion, avatar) {
         this._userName.textContent = name;
         this._userProffesion.textContent = proffesion;
+        this.setAvatar(avatar);
+    }
+
+    //принимает новыую ссылку на аватар и отрисовывает её
+    setAvatar(avatar) {
         this._avatar.setAttribute('src', avatar);
     }
+
 
 }
