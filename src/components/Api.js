@@ -1,7 +1,7 @@
 class Api {
-    constructor(host, token) {
-        this.host = host;
-        this.token = token;
+    constructor(data) {
+        this.host = data.host;
+        this.token = data.token;
     }
 
     // проверка статуса запроса
@@ -22,15 +22,7 @@ class Api {
             headers: {
                 authorization: this.token,
             },
-        }).then((res) => {
-            if (res.ok) {
-                return res.json();
-            } else {
-                return Promise.reject(
-                    `Упс: ${res.status} - ${res.statusText}`
-                );
-            }
-        })
+        }).then((res) => this._getResponse(res))
     }
 
     // отправка данных пользователя
@@ -42,15 +34,7 @@ class Api {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ name: data.firstname, about: data.profession }),
-        }).then((res) => {
-            if (res.ok) {
-                return res.json();
-            } else {
-                return Promise.reject(
-                    `Упс: ${res.status}`
-                );
-            }
-        });
+        }).then((res) => this._getResponse(res));
     }
 
     //запрос изображений с сервера 
@@ -59,15 +43,7 @@ class Api {
             headers: {
                 authorization: this.token,
             },
-        }).then((res) => {
-            if (res.ok) {
-                return res.json();
-            } else {
-                return Promise.reject(
-                    `Упс: ${res.status}`
-                );
-            }
-        });
+        }).then((res) => this._getResponse(res));
     }
 
     // отправка изображений на сервер 
@@ -79,15 +55,7 @@ class Api {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ name: data.image_title, link: data.link }),
-        }).then((res) => {
-            if (res.ok) {
-                return res.json();
-            } else {
-                return Promise.reject(
-                    `Упс: ${res.status}`
-                );
-            }
-        });
+        }).then((res) => this._getResponse(res));
     }
 
     //смена аватара(отправка на сервер)
@@ -99,34 +67,17 @@ class Api {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ avatar: data.link }),
-        }).then((res) => {
-            if (res.ok) {
-                return res.json();
-            } else {
-                return Promise.reject(
-                    `Упс: ${res.status}`
-                );
-            }
-        });
+        }).then((res) => this._getResponse(res));
     }
 
     //удалить карточку
     deleteCard(data) {
-        console.log(data);
         return fetch(`${this.host}cards/${data}`, {
             method: 'DELETE',
             headers: {
                 authorization: this.token,
             }
-        }).then((res) => {
-            if (res.ok) {
-                return res.json();
-            } else {
-                return Promise.reject(
-                    `Упс: ${res.status}`
-                );
-            }
-        });
+        }).then((res) => this._getResponse(res));
     }
 
     //поставить лайк 
@@ -136,15 +87,7 @@ class Api {
             headers: {
                 authorization: this.token,
             }
-        }).then((res) => {
-            if (res.ok) {
-                return res.json();
-            } else {
-                return Promise.reject(
-                    `Упс: ${res.status}`
-                );
-            }
-        });
+        })
     }
 
     //удалить лайк
@@ -154,15 +97,7 @@ class Api {
             headers: {
                 authorization: this.token,
             }
-        }).then((res) => {
-            if (res.ok) {
-                return res.json();
-            } else {
-                return Promise.reject(
-                    `Упс: ${res.status}`
-                );
-            }
-        });
+        })
     }
 }
 

@@ -8,6 +8,16 @@ export default class PopupWithForm extends Popup {
         this.handleSendForm = handleSendForm;
     }
 
+    //изменить текст кнопки сабмита
+    changeNameButtonSubmit() {
+        this._buttonSubmit.textContent = 'Сохранение...'
+    }
+
+    //вернуть исходный текст кнопки сабмита
+    returnNameButtonSubmit() {
+        this._buttonSubmit.textContent = 'Сохраненить'
+    }
+
     // получить данные из инпута
     _getInputValues() {
         const values = {};
@@ -31,7 +41,7 @@ export default class PopupWithForm extends Popup {
 
     // сбросить форму при закрытии
     close() {
-        this._form.reset();
         super.close();
+        this._form.reset();
     }
 }

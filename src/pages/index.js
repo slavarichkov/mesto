@@ -5,26 +5,49 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWhithImage from "../components/PopupWhithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import './index.css'; //импорт css для webpack
-import { buttonEdit, firstNameInput, professionInput, popupFormUserInput, imageAddButton, popupFormAddImage, containerOfImages, config, buttonRedactAvatar } from "../utils/constants.js"; //импорт переменных
+import { buttonEdit, firstNameInput, professionInput, imageAddButton, containerOfImages, config, buttonRedactAvatar } from "../utils/constants.js"; //импорт переменных
 
-//класс Апи - передать токен и хост
-const api = new Api('https://mesto.nomoreparties.co/v1/cohort-47/', 'aa25b93c-b1f5-4136-8d21-3d760fe1b048');
+//получить айди юзера
+let userIdd = '';
 
-//отправить лайк
-function likeCard(idCard) {
-    api.addLike(idCard)
-}
-
-//удалить лайк
-function deleteLike(idCard) {
-    api.deleteLike(idCard)
-}
-
-//отображение данных пользователя с сервера на странице при загрузке
-api.getUserInfo().then((data) => {
-    userInfoRedact.setUserInfo(data.name, data.about, data.avatar);
+//класс Апи 
+const api = new Api({
+    host: 'https://mesto.nomoreparties.co/v1/cohort-47/',
+    token: 'aa25b93c-b1f5-4136-8d21-3d760fe1b048'
 });
+
+function returnPromise(res) {
+    if (res.ok) {
+        return res.json();
+    } else {
+        return Promise.reject(
+            `Упс: ${res.status}`
+        );
+    }
+}
+
+const likeCard = (idCard, classMetod) => {
+    api.addLike(idCard)
+        .then((res) => returnPromise(res))
+        .then((res) => {
+            classMetod.drawLike(res.likes);
+        })
+        .catch((err) => {
+            console.log(err); // выведем ошибку в консоль
+        })
+
+}
+
+const deleteLike = (idCard, classMetod) => {
+    api.deleteLike(idCard)
+        .then((res) => returnPromise(res))
+        .then((res) => classMetod.removeLike(res.likes))
+        .catch((err) => {
+            console.log(err); // выведем ошибку в консоль
+        })
+}
 
 // управление увеличением изображения
 const popupImageScaleControl = new PopupWhithImage('.popup_image_scale');
@@ -34,25 +57,15 @@ function controlScaleImage(name, link) {
     popupImageScaleControl.open(name, link);
 }
 
-//заменить название кнопки сабмита
-function changeNameButtonSubmit(selectorPopup) {
-    document.querySelector(selectorPopup).querySelector('.popup__button').textContent = 'Сохранение...'
-}
-
-//вернуть название кнопки сабмита
-function returnNameButtonSubmit(selectorPopup) {
-    document.querySelector(selectorPopup).querySelector('.popup__button').textContent = 'Сохранение...'
-}
-
-
 //Попап редактирования аватара (изображения юзера) --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const popupUserSendAvatar = new PopupWithForm('.popup_avatar_redact', (data) => {
-    changeNameButtonSubmit('.popup_avatar_redact');
+    popupUserSendAvatar.changeNameButtonSubmit();
     api.sendAvatar(data).then((data) => {
         userInfoRedact.setAvatar(data.avatar);
+        popupUserSendAvatar.close();
     }).catch((err) => {
         console.log(err); // выведем ошибку в консоль
-    }).finally(() => { returnNameButtonSubmit('.popup_avatar_redact'); popupUserSendAvatar.close() })
+    }).finally(() => { popupUserSendAvatar.returnNameButtonSubmit() })
 });
 popupUserSendAvatar.setEventListeners();
 buttonRedactAvatar.addEventListener('click', () => {
@@ -63,13 +76,15 @@ buttonRedactAvatar.addEventListener('click', () => {
 //**Попап редактирования профиля-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const userInfoRedact = new UserInfo('.profile__firstname', '.profile__subtext', '.profile__avatar');
 const popupControlUserInput = new PopupWithForm('.popup_user_input', (data) => {
-    changeNameButtonSubmit('.popup_user_input');
+    popupControlUserInput.changeNameButtonSubmit();
     api.sendUserInfo(data)
-        .then((data) =>
-            userInfoRedact.setUserInfo(data.name, data.about, data.avatar))
+        .then((data) => {
+            userInfoRedact.setUserInfo(data.name, data.about, data.avatar);
+            popupControlUserInput.close()
+        })
         .catch((err) => {
             console.log(err); // выведем ошибку в консоль
-        }).finally(() => { returnNameButtonSubmit('.popup_user_input'); popupControlUserInput.close() })
+        }).finally(() => { popupControlUserInput.returnNameButtonSubmit() })
 });
 popupControlUserInput.setEventListeners();
 
@@ -82,66 +97,53 @@ buttonEdit.addEventListener('click', (e) => {
     });
 });
 
-
-
 // создать карточку --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function createNewCard(name, link, identificator) {
-    const newCard = new Card(config, controlScaleImage, name, link, deleteCard, likeCard, deleteLike, '9bd3c86322412c56203f6689');
-    const returnImageUser = newCard.generateCard(name, link, likeCard);
-    newCard.addIdCard(identificator); // присвоить айди для дальнейшего удаления по автору
-    newCard.showLike(); // отрисовать лайки
-    newCard.showQuantityLikes()//показать количество лайков
+function createNewCard(name, link, dataCard, userIdd) {
+    const newCard = new Card(config, controlScaleImage, name, link, deleteCard, likeCard, deleteLike, userIdd, dataCard);
+    const returnImageUser = newCard.generateCard(newCard);
+    newCard.addOptions(); // отрисовать лайки,
     return returnImageUser;
 }
 
 
 //удалить карточку--------------------------------------------------------------------------------------------------------------------------------------------
-function deleteCard(Card) {
-    const dataCard = Card._allDataCard;
-    const deleteCardPopup = new PopupWithForm('.popup_card_remove', () => api.deleteCard(dataCard._id)
+
+const deleteCardPopup = new PopupWithConfirmation('.popup_card_remove', (data) => {
+    const dataCard = data._allDataCard;
+    api.deleteCard(dataCard._id)
         .then(() => {
-            Card.handleDelete();
+            data.handleDelete();
         }).catch((err) => {
-            console.log(err); // выведем ошибку в консоль
-        }).finally(() => { returnNameButtonSubmit('.popup_avatar_redact'); deleteCardPopup.close() }));
-    deleteCardPopup.setEventListeners()
-    deleteCardPopup.open();
+            console.log(err); // выведем ошибку в консоль 
+        }).finally(() => { returnNameButtonSubmit('.popup_avatar_redact'); deleteCardPopup.close() })
+})
+deleteCardPopup.setEventListeners();
+
+const deleteCard = (card) => {
+    deleteCardPopup.open(card);
 }
 
 
 //отрисовать карточки (вставить в разметку)--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function renderCards(info) {
-    const renderElements = new Section({
-        data: info,
-        renderer: (item) => {
-            renderElements.addItem(createNewCard(item.name, item.link, item))
-        }
-    },
-        containerOfImages
-    );
-    return renderElements;
-}
-
-
-// **Автоматическое создание карточек c сервера при запустке страницы-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-api.getImages()
-    .then((item) => {
-        renderCards(item).createElements();
-    })
-    .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-    });
+const renderCards = new Section({
+    renderer: (item) => {
+        renderCards.addItem(createNewCard(item.name, item.link, item, userIdd))
+    }
+},
+    containerOfImages
+);
 
 
 //добавить новую карточку, обработка инпутов формы(+слушатели) и отправка новой карточки на сервер-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const popupUserImageAdd = new PopupWithForm('.popup_image_content', (data) => {
-    changeNameButtonSubmit('.popup_image_content');
+    popupUserImageAdd.changeNameButtonSubmit();
     api.sendImages(data).then((data) => {
-        renderCards(data).createElement();
+        renderCards.createElement(data);
+        popupUserImageAdd.close()
     })
         .catch((err) => {
             console.log(err); // выведем ошибку в консоль
-        }).finally(() => { returnNameButtonSubmit('.popup_user_input'); popupUserImageAdd.close() })
+        }).finally(() => { popupUserImageAdd.returnNameButtonSubmit() })
 });
 popupUserImageAdd.setEventListeners();
 
@@ -160,7 +162,7 @@ const enableValidation = (config) => {
         const validator = new FormValidator(config, formElement);
         // получаем данные из атрибута `name` у формы
         const formName = formElement.getAttribute('name')
-        // вот тут в объект записываем под именем формы
+        // объект записываем под именем формы
         formValidators[formName] = validator;
         validator.enableValidation();
     });
@@ -168,3 +170,14 @@ const enableValidation = (config) => {
 
 enableValidation(config);
 
+// **Автоматическое создание карточек и получение инф о юзере c сервера при запустке страницы-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Promise.all([
+    api.getUserInfo(),
+    api.getImages()])
+    .then(([infoUser, initialCards]) => {
+        userIdd = infoUser._id;
+        renderCards.createElements(initialCards);
+        userInfoRedact.setUserInfo(infoUser.name, infoUser.about, infoUser.avatar);
+    }).catch((err) => {
+        console.log(err);
+    }) 

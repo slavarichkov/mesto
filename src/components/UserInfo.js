@@ -14,7 +14,6 @@ export default class UserInfo {
         }
     }
 
-
     //принимает новые данные пользователя и добавляет их на страницу
     setUserInfo(name, proffesion, avatar) {
         this._userName.textContent = name;

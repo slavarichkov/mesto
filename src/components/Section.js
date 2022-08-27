@@ -1,21 +1,22 @@
 //добавляет елемент в разметку
 
 export default class Section {
-    constructor({ data, renderer }, container) {
-        this.data = data;
+    constructor({ renderer }, container) {
         this.renderer = renderer; // функция
 
         this.container = container;
     }
 
     //проработать массив
-    createElements() {
+    createElements(data) {
+        this.data = data;
         this.data.forEach(item => {
             this.renderer(item)
         })
     }
     //проработать запрос на 1 карточку
-    createElement() {
+    createElement(data) {
+        this.data = data;
         this.renderer(this.data)
     }
 
