@@ -10,7 +10,7 @@ import './index.css'; //импорт css для webpack
 import { buttonEdit, firstNameInput, professionInput, imageAddButton, containerOfImages, config, buttonRedactAvatar } from "../utils/constants.js"; //импорт переменных
 
 //получить айди юзера
-let userIdd = '';
+let userId = '';
 
 //класс Апи 
 const api = new Api({
@@ -19,13 +19,12 @@ const api = new Api({
 });
 
 const likeCard = (card) => {
-    console.log(card);
     api.addLike(card.idImage)
         .then((res) => {
             card.drawLike(res.likes);
         })
         .catch((err) => {
-            console.log(err); 
+            console.log(err);
         })
 
 }
@@ -34,7 +33,7 @@ const deleteLike = (card) => {
     api.deleteLike(card.idImage)
         .then((res) => card.removeLike(res.likes))
         .catch((err) => {
-            console.log(err); 
+            console.log(err);
         })
 }
 
@@ -53,7 +52,7 @@ const popupUserSendAvatar = new PopupWithForm('.popup_avatar_redact', (data) => 
         userInfoRedact.setAvatar(data.avatar);
         popupUserSendAvatar.close();
     }).catch((err) => {
-        console.log(err); 
+        console.log(err);
     }).finally(() => { popupUserSendAvatar.returnNameButtonSubmit('Сохранить') })
 });
 popupUserSendAvatar.setEventListeners();
@@ -72,7 +71,7 @@ const popupControlUserInput = new PopupWithForm('.popup_user_input', (data) => {
             popupControlUserInput.close()
         })
         .catch((err) => {
-            console.log(err); 
+            console.log(err);
         }).finally(() => { popupControlUserInput.returnNameButtonSubmit('Сохранить') })
 });
 popupControlUserInput.setEventListeners();
@@ -87,8 +86,8 @@ buttonEdit.addEventListener('click', (e) => {
 
 
 // создать карточку --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function createNewCard(name, link, dataCard, userIdd) {
-    const newCard = new Card(config, controlScaleImage, name, link, deleteCard, likeCard, deleteLike, userIdd, dataCard);
+function createNewCard(name, link, dataCard, userId) {
+    const newCard = new Card(config, controlScaleImage, name, link, deleteCard, likeCard, deleteLike, userId, dataCard);
     const returnImageUser = newCard.generateCard();
     newCard.addOptions(); // отрисовать лайки,
     return returnImageUser;
@@ -96,15 +95,13 @@ function createNewCard(name, link, dataCard, userIdd) {
 
 
 //удалить карточку--------------------------------------------------------------------------------------------------------------------------------------------
-
 const deleteCardPopup = new PopupWithConfirmation('.popup_card_remove', (data) => {
-    const dataCard = data.allDataCard;
-    api.deleteCard(dataCard._id)
+    api.deleteCard(data.idImage)
         .then(() => {
             data.handleDelete();
             deleteCardPopup.close();
         }).catch((err) => {
-            console.log(err);  
+            console.log(err);
         })
 })
 deleteCardPopup.setEventListeners();
@@ -117,7 +114,7 @@ const deleteCard = (card) => {
 //отрисовать карточки (вставить в разметку)--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const renderCards = new Section({
     renderer: (item) => {
-        renderCards.addItem(createNewCard(item.name, item.link, item, userIdd))
+        renderCards.addItem(createNewCard(item.name, item.link, item, userId))
     }
 },
     containerOfImages
@@ -132,7 +129,7 @@ const popupUserImageAdd = new PopupWithForm('.popup_image_content', (data) => {
         popupUserImageAdd.close()
     })
         .catch((err) => {
-            console.log(err); 
+            console.log(err);
         }).finally(() => { popupUserImageAdd.returnNameButtonSubmit('Сохранить') })
 });
 popupUserImageAdd.setEventListeners();
@@ -165,7 +162,7 @@ Promise.all([
     api.getUserInfo(),
     api.getImages()])
     .then(([infoUser, initialCards]) => {
-        userIdd = infoUser._id;
+        userId = infoUser._id;
         renderCards.createElements(initialCards);
         userInfoRedact.setUserInfo(infoUser.name, infoUser.about, infoUser.avatar);
     }).catch((err) => {
