@@ -9,14 +9,12 @@ export default class Section {
 
     //проработать массив
     createElements(data) {
-        //this.data = data;
         data.forEach(item => {
             this.renderer(item)
         })
     }
     //проработать запрос на 1 карточку
     createElement(data) {
-        //this.data = data;
         this.renderer(data)
     }
 

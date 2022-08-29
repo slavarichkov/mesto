@@ -25,7 +25,7 @@ const likeCard = (card) => {
             card.drawLike(res.likes);
         })
         .catch((err) => {
-            console.log(err); // выведем ошибку в консоль
+            console.log(err); 
         })
 
 }
@@ -34,7 +34,7 @@ const deleteLike = (card) => {
     api.deleteLike(card.idImage)
         .then((res) => card.removeLike(res.likes))
         .catch((err) => {
-            console.log(err); // выведем ошибку в консоль
+            console.log(err); 
         })
 }
 
@@ -53,7 +53,7 @@ const popupUserSendAvatar = new PopupWithForm('.popup_avatar_redact', (data) => 
         userInfoRedact.setAvatar(data.avatar);
         popupUserSendAvatar.close();
     }).catch((err) => {
-        console.log(err); // выведем ошибку в консоль
+        console.log(err); 
     }).finally(() => { popupUserSendAvatar.returnNameButtonSubmit('Сохранить') })
 });
 popupUserSendAvatar.setEventListeners();
@@ -72,7 +72,7 @@ const popupControlUserInput = new PopupWithForm('.popup_user_input', (data) => {
             popupControlUserInput.close()
         })
         .catch((err) => {
-            console.log(err); // выведем ошибку в консоль
+            console.log(err); 
         }).finally(() => { popupControlUserInput.returnNameButtonSubmit('Сохранить') })
 });
 popupControlUserInput.setEventListeners();
@@ -104,7 +104,7 @@ const deleteCardPopup = new PopupWithConfirmation('.popup_card_remove', (data) =
             data.handleDelete();
             deleteCardPopup.close();
         }).catch((err) => {
-            console.log(err); // выведем ошибку в консоль 
+            console.log(err);  
         })
 })
 deleteCardPopup.setEventListeners();
@@ -132,7 +132,7 @@ const popupUserImageAdd = new PopupWithForm('.popup_image_content', (data) => {
         popupUserImageAdd.close()
     })
         .catch((err) => {
-            console.log(err); // выведем ошибку в консоль
+            console.log(err); 
         }).finally(() => { popupUserImageAdd.returnNameButtonSubmit('Сохранить') })
 });
 popupUserImageAdd.setEventListeners();
