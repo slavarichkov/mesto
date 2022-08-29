@@ -15,10 +15,8 @@ class Card {
         this._cardImage = this._userElement.querySelector(this.config.imageElementSelector);//картинка
         this._like = this._userElement.querySelector(this.config.likeImageSelector);//лайк
         this._likesСounter = this._userElement.querySelector(this.config.likeQuantitySelector);//счетчик лайков
-        //this.newArrayLikes = []; // заготовка под массив лайков на карточке
         this.allDataCard = dataCard;
         this._idUser = dataCard.owner._id;
-        // this._idImage = dataCard._id;
         this.idImage = dataCard._id;
         this._arrayLikes = dataCard.likes
     }
