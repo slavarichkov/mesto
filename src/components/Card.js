@@ -15,26 +15,23 @@ class Card {
         this._cardImage = this._userElement.querySelector(this.config.imageElementSelector);//картинка
         this._like = this._userElement.querySelector(this.config.likeImageSelector);//лайк
         this._likesСounter = this._userElement.querySelector(this.config.likeQuantitySelector);//счетчик лайков
-        this.newArrayLikes = []; // заготовка под массив лайков на карточке
-        this._allDataCard = dataCard;
+        //this.newArrayLikes = []; // заготовка под массив лайков на карточке
+        this.allDataCard = dataCard;
         this._idUser = dataCard.owner._id;
-        this._idImage = dataCard._id;
+        // this._idImage = dataCard._id;
+        this.idImage = dataCard._id;
         this._arrayLikes = dataCard.likes
     }
 
     //показать или спрятать лайк
     _handleLike() {
         if (this._like.classList.contains(this.config.imageLikeactivatedClass)) {
-            this._deleteCardLike(this._idImage, this.dataNewClass);
+            this._deleteLike(this); //удалить лайк 
         } else {
-            this._addLikeCard(this._idImage, this.dataNewClass);
+            this._addLike(this);  //добавить лайк сервер + браузер
         }
     }
 
-    //добавить лайк сервер + браузер
-    _addLikeCard() {
-        this._addLike(this._idImage, this.dataNewClass)
-    }
 
     // отрисовать лайк на странице
     drawLike(likeArray) {
@@ -47,12 +44,6 @@ class Card {
         this._likesСounter.textContent = likeArray.length;
     }
 
-    //удалить лайк 
-    _deleteCardLike() {
-        this._deleteLike(this._idImage, this.dataNewClass)
-    }
-
-
     //отрисовать лайк  при загрузке информации с сервера
     _showLike() {
         this._arrayLikes.forEach((item) => {
@@ -64,21 +55,9 @@ class Card {
 
     //отрисовать количество лайков при загрузке информации с сервера
     _showQuantityLikes() {
-        this._arrayLikes.forEach((item) => {
-            this.newArrayLikes.push(item._id); // наполнить массив айди лайкнувших юзеров
-        });
-        if (this.newArrayLikes.length > 0) {
+        if (this._arrayLikes.length > 0) {
             this._likesСounter.classList.add(this.config.likeQuantityActiveClass);
-            this._likesСounter.textContent = this.newArrayLikes.length;
-        }
-    }
-
-    //добавить количество лайков
-    _controlQuantityLikes() {
-        if (this._like.classList.contains(this.config.imageLikeactivatedClass)) {
-            this._likesСounter.textContent = this._likesСounter.textContent - 1;
-        } else {
-            this._likesСounter.textContent = Number(this._likesСounter.textContent) + 1;
+            this._likesСounter.textContent = this._arrayLikes.length;
         }
     }
 
@@ -108,8 +87,7 @@ class Card {
     }
 
     //наполнить темплейт - ссылка на картинку и ее название + прикрепить слушатели
-    generateCard(dataNewClass) {
-        this.dataNewClass = dataNewClass; // доступ к методам класса
+    generateCard() {
         this._cardImage.src = this.valueLink;
         this._cardImage.alt = this.valueName;
         this._userElement.querySelector(this.config.titleElementSelector).textContent = this.valueName;

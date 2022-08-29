@@ -6,16 +6,17 @@ export default class PopupWithForm extends Popup {
         this._form = this._popup.querySelector('.popup__form');
         this._inputs = this._form.querySelectorAll('.popup__input');
         this.handleSendForm = handleSendForm;
+        this._buttonSubmit = this._popup.querySelector('.popup__button'); //кнопка сабмита
     }
 
     //изменить текст кнопки сабмита
-    changeNameButtonSubmit() {
-        this._buttonSubmit.textContent = 'Сохранение...'
+    changeNameButtonSubmit(text) {
+        this._buttonSubmit.textContent = text;
     }
 
     //вернуть исходный текст кнопки сабмита
-    returnNameButtonSubmit() {
-        this._buttonSubmit.textContent = 'Сохраненить'
+    returnNameButtonSubmit(text) {
+        this._buttonSubmit.textContent = text;
     }
 
     // получить данные из инпута

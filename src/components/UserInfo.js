@@ -6,11 +6,11 @@ export default class UserInfo {
         this._avatar = document.querySelector(avatar);
     }
 
-    //возвращает объект с данными пользователя со страницы для добавления в попап при открытии
-    getUserInfo(data) {
+    //данные пользователя со страницы для добавления в попап при открытии
+    getUserInfo() {
         return {
-            userName: data.name,
-            userProffesion: data.about
+        name: this._userName.textContent, 
+        about: this._userProffesion.textContent 
         }
     }
 

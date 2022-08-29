@@ -87,7 +87,7 @@ class Api {
             headers: {
                 authorization: this.token,
             }
-        })
+        }).then((res) => this._getResponse(res));
     }
 
     //удалить лайк
@@ -97,7 +97,7 @@ class Api {
             headers: {
                 authorization: this.token,
             }
-        })
+        }).then((res) => this._getResponse(res));
     }
 }
 
