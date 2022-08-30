@@ -89,7 +89,6 @@ buttonEdit.addEventListener('click', (e) => {
 function createNewCard(name, link, dataCard, userId) {
     const newCard = new Card(config, controlScaleImage, name, link, deleteCard, likeCard, deleteLike, userId, dataCard);
     const returnImageUser = newCard.generateCard();
-    newCard.addOptions(); // отрисовать лайки,
     return returnImageUser;
 }
 

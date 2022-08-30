@@ -18,7 +18,8 @@ class Card {
         this.allDataCard = dataCard;
         this._idUser = dataCard.owner._id;
         this.idImage = dataCard._id;
-        this._arrayLikes = dataCard.likes
+        this._arrayLikes = dataCard.likes;
+        this._buttonDelete = this._userElement.querySelector(this.config.buttonCardDeleteSelector);
     }
 
     //показать или спрятать лайк
@@ -60,10 +61,6 @@ class Card {
     }
 
     // управление удалением карточки
-    handleApiDelete() {
-        this._handleCardDelete(this);
-    }
-
     handleDelete() {
         this._userElement.remove();
         this._userElement = null;
@@ -89,16 +86,15 @@ class Card {
         this._cardImage.src = this.valueLink;
         this._cardImage.alt = this.valueName;
         this._userElement.querySelector(this.config.titleElementSelector).textContent = this.valueName;
+        this.addOptions();
         this._setEventListeners();
         return this._userElement;
     }
 
     _setEventListeners() {
-        this._like.addEventListener('click', this._handleLike.bind(this)); // слушатель управление лайком
-        this._buttonDelete = this._userElement.querySelector(this.config.buttonCardDeleteSelector); // слушатель удаления карточки
-        this._buttonDelete.addEventListener('click', this.handleApiDelete.bind(this));
-        this._handleCardScale = () => this._handleCardClick(this.valueName, this.valueLink); //слушатель увеличения изображения
-        this._cardImage.addEventListener('click', this._handleCardScale);
+        this._like.addEventListener('click', () => this._handleLike()); // слушатель управление лайком
+        this._buttonDelete.addEventListener('click', () => this._handleCardDelete()); //слушатель удаления карточки
+        this._cardImage.addEventListener('click', () => this._handleCardClick(this.valueName, this.valueLink)); //слушатель увеличения изображения
     }
 
 }
