@@ -75,7 +75,7 @@ class Card {
     }
 
     // дата данных карточки, в тч присвоение айди для дальнейшего удаления карточки по автору + айди для удаления картинки и тд
-    addOptions() {
+    _addOptions() {
         this._removeButtonDelete(); // спрятать корзину по автору
         this._showLike(); // отрисовать лайк при загрузке
         this._showQuantityLikes() // показать количество лайков
@@ -86,7 +86,7 @@ class Card {
         this._cardImage.src = this.valueLink;
         this._cardImage.alt = this.valueName;
         this._userElement.querySelector(this.config.titleElementSelector).textContent = this.valueName;
-        this.addOptions();
+        this._addOptions();
         this._setEventListeners();
         return this._userElement;
     }
