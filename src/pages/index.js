@@ -86,7 +86,8 @@ buttonEdit.addEventListener('click', (e) => {
 
 
 // создать карточку --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function createNewCard(name, link, dataCard, userId) {
+function 
+(name, link, dataCard, userId) {
     const newCard = new Card(config, controlScaleImage, name, link, deleteCard, likeCard, deleteLike, userId, dataCard);
     const returnImageUser = newCard.generateCard();
     return returnImageUser;
